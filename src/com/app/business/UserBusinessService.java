@@ -3,6 +3,9 @@ package com.app.business;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.app.data.DataAccessInterface;
+import com.app.exceptions.UserErrorException;
+import com.app.exceptions.UserFoundException;
+import com.app.exceptions.UserNotFoundException;
 import com.app.model.User;
 
 public class UserBusinessService implements UserBusinessInterface 
@@ -21,24 +24,43 @@ public class UserBusinessService implements UserBusinessInterface
 	/**
 	 * Validation Method that forwards the request to the DAO to find the User.
 	 * 
+	 * @throws UserNotFoundException
 	 * @param User user
 	 * @return User
 	 */
-	public User findBy(User user)
+	public User findBy(User user) throws UserNotFoundException
 	{
+		user = userDAO.findBy(user);
+		if(user == null)
+		{
+			throw new UserNotFoundException();
+		}
+		
 		// return results from UserDataService.findBy(user)
-		return this.userDAO.findBy(user);
+		return user;
 	}
 	
 	/**
 	 * Creation Method that forwards the request to the DAO to create a new User.
 	 * 
+	 * @throws UserFoundException
 	 * @param User user
-	 * @returm boolean
+	 * @return boolean
 	 */
-	public boolean create(User user)
+	public boolean create(User user) throws UserFoundException, UserErrorException
 	{
-		// return results from UserDataService.create(user)
-		return this.userDAO.create(user);
+		User exists = userDAO.findBy(user);
+		if(exists != null)
+		{
+			throw new UserFoundException();
+		}
+		
+		boolean result = userDAO.create(user);
+		if(result == false)
+		{
+			throw new UserErrorException();
+		}
+		
+		return result;
 	}
 }

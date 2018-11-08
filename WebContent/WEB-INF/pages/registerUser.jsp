@@ -26,7 +26,8 @@
 				<td><form:errors class="error" path="email"/></td>
 			</tr>
 			<tr>
-				<td><form:input id="phoneInput" class="input" path="phone" placeholder="phone number" maxlength="14" required="true" /></td>
+				<td><form:input id="phoneInput" class="input" path="phone" placeholder="phone number" minlength="14" maxlength="14" required="true" 
+				oninvalid="this.setCustomValidity('Phone field must be 10 numbers in length.')" oninput="this.setCustomValidity('')" /></td>
 			</tr>
 			<tr>
 				<td><form:errors class="error" path="phone"/></td>

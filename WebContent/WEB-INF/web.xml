@@ -24,6 +24,12 @@
 	   <param-name>contextConfigLocation</param-name>
 	   <param-value>/WEB-INF/applicationConfiguration.xml</param-value>
 	</context-param>
+	<context-param>
+	    <param-name>
+	        javax.faces.INTERPRET_EMPTY_STRING_SUBMITTED_VALUES_AS_NULL
+	    </param-name>
+	    <param-value>true</param-value>
+	</context-param>
 	<listener>
 	   <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
 	</listener>

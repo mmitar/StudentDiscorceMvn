@@ -9,13 +9,13 @@
 	<form:form method="POST" modelAttribute="user" action="../login/validateUser">
 		<table>
 			<tr>
-				<td><form:input class="input" path="username" placeholder="username" min="5" maxlength="30" required="true" /></td>
+				<td><form:input class="input" path="username" placeholder="username" minlength="5" maxlength="30" required="true" /></td>
 			</tr>
 			<tr>
 				<td><form:errors class="error" path="username"/></td>
 			</tr>
 			<tr>
-				<td><form:input class="input" path="password" type="password" placeholder="password" min="5" maxlength="30" required="true" /></td>
+				<td><form:input class="input" path="password" type="password" placeholder="password" minlength="5" maxlength="30" required="true" /></td>
 			</tr>
 			<tr>
 				<td><form:errors class="error" path="password"/></td>

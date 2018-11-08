@@ -12,6 +12,8 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.app.business.CourseBusinessInterface;
 import com.app.business.UserBusinessInterface;
+import com.app.exceptions.CourseErrorException;
+import com.app.exceptions.UserNotFoundException;
 import com.app.model.User;
 
 @Controller
@@ -40,9 +42,8 @@ public class LoginController
 	}
 	
 	/**
-	 * loginUser
 	 * Validates the form post user model for validation errors. if error: nav back to loginUser
-	 * if successful, nav forward to dashboard.
+	 * If successful, nav forward to dashboard.
 	 * 
 	 * @param User user
 	 * @param BindingResult result
@@ -55,31 +56,41 @@ public class LoginController
 		// Validate the form
 		if(validate.hasErrors())
 		{
+			System.out.println("user has errors: " + user);
 			return new ModelAndView("loginUser", "user", user);
 		}
 		
-		// Call UserBusinessService.findBy() to see if user exists
-		User verifiedUser = this.userService.findBy(user);
-		
-		// check if the User was found. If not return back to previous view with error
-		if(verifiedUser == null)
+		try {
+			// Call UserBusinessService.findBy() to see if user exists
+			User verifiedUser = userService.findBy(user);
+			
+			// Forwards the user to the dashboard if User found
+			ModelAndView mv = new ModelAndView("dashboard");
+			mv.addObject("user", verifiedUser);
+			mv.addObject("courses", courseService.findAll());
+			return mv;
+		}
+		// 
+		catch(UserNotFoundException e)
 		{
+			System.out.println("UserNotFoundException.");
 			ModelAndView mv = new ModelAndView("loginUser");
 			mv.addObject("user", user);
 			mv.addObject("error", "Username or Password is incorrect.");
 			return mv;
 		}
-		
-		// Forwards the user to the dashboard if User found
-		ModelAndView mv = new ModelAndView("dashboard");
-		mv.addObject("user", verifiedUser);
-		mv.addObject("courses", this.courseService.findAll());
-		
-		return mv;
+		catch(CourseErrorException e)
+		{
+			System.out.println("CourseErrorException.");
+			ModelAndView mv = new ModelAndView("dashboard");
+			mv.addObject("user", user);
+			mv.addObject("courses", null);
+			mv.addObject("error", "Error collecting Courses.");
+			return mv;
+		}
 	}
 	
 	/**
-	 * viewDashboard
 	 * Navs user the dashboard via URI.
 	 * 
 	 * @return View dashboard
@@ -89,4 +100,5 @@ public class LoginController
 	{
 		return "dashboard";
 	}
+	
 }

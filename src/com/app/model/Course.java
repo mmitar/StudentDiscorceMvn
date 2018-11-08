@@ -16,25 +16,25 @@ import org.springframework.jdbc.support.rowset.SqlRowSet;
 public class Course 
 {
 	@NotNull(message="ID cannot be null.")
-	@Size(min=4, max=30, message="ID must be between 5 and 30 characters.")
+	@Size(min=7, max=10, message="Course Identification Number must be between 7 and 10 characters.")
 	private String courseID;
-	@NotNull(message="Title cannot be null.")
-	@Size(min=5, max=200, message="Title must be between 5 and 200 characters.")
+	
+	@Size(max=200, message="Title is limited up to 200 characters.")
 	private String title;
-	@NotNull(message="description cannot be null.")
-	@Size(min=5, max=200, message="description must be between 5 and 200 characters.")
+	
+	@Size(max=200, message="Description is limited up to 200 characters.")
 	private String description;
-	@NotNull(message="Major cannot be null.")
-	@Size(min=5, max=200, message="Major must be between 5 and 200 characters.")
+	
+	@Size(max=200, message="Major is limited up to  200 characters.")
 	private String major;
-	@NotNull(message="Class Location cannot be null.")
-	@Size(min=5, max=200, message="Class Location must be between 5 and 200 characters.")
+	
+	@Size(max=200, message="Class Location is limited up to  200 characters.")
 	private String classLocation;
-	@NotNull(message="Class Times cannot be null.")
-	@Size(min=5, max=200, message="Class Times must be between 5 and 200 characters.")
+	
+	@Size(max=200, message="Class Times is limited up to 200 characters.")
 	private String classTimes;
-	@NotNull(message="Tutor Times cannot be null.")
-	@Size(min=5, max=200, message="Tutor Times must be between 5 and 200 characters.")
+	
+	@Size(max=200, message="Tutor Times is limited up to 200 characters.")
 	private String tutorTimes;
 	
 	private List<User> instructors;
@@ -46,7 +46,6 @@ public class Course
 
 	public Course() 
 	{
-		courseID = "";
 		title = "";
 		description = "";
 		major = "";
@@ -56,7 +55,7 @@ public class Course
 		instructors = new ArrayList<User>();
 		tutors = new ArrayList<User>();
 		students = new ArrayList<User>();
-		image = null;
+		image = "";
 	}
 
 	public Course(String courseID, String title, String description, String major, String classLocation, String classTimes,

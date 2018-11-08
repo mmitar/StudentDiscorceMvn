@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.app.business.UserBusinessInterface;
+import com.app.exceptions.UserErrorException;
+import com.app.exceptions.UserFoundException;
 import com.app.model.User;
 
 @Controller
@@ -51,23 +53,34 @@ public class RegisterController
 		// Validate the form, if errors return view
 		if(validate.hasErrors())
 		{
+			System.out.println("Register Errors.");
 			return new ModelAndView("registerUser", "user", user);
 		}
 		
-		// Calls UserBusinessService.create()
-		boolean result = this.userService.create(user);
-		
-		// If create failed return with error
-		if(result == false)
+		try
 		{
+			// Calls UserBusinessService.create()
+			userService.create(user);
+
+			// Return MAV and user model to login form
+			return new ModelAndView("loginUser", "user", user);
+		}
+		// If create failed return with error
+		catch(UserFoundException e)
+		{
+			System.out.println("UserFoundException.");
 			ModelAndView mv = new ModelAndView("registerUser");
 			mv.addObject("user", user);
 			mv.addObject("error", "Username already exists. Please try another.");
 			return mv;
 		}
-		
-		// Return MAV and user model to login form
-		return new ModelAndView("loginUser", "user", user);
+		catch(UserErrorException e)
+		{
+			System.out.println("UserErrorException.");
+			ModelAndView mv = new ModelAndView("registerUser");
+			mv.addObject("user", user);
+			mv.addObject("error", "There was an issue creating your account. Please try again.");
+			return mv;
+		}
 	}
-	
 }

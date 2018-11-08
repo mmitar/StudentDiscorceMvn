@@ -9,13 +9,14 @@
 	<form:form method="POST" modelAttribute="course" action="../course/addedCourse">
 		<table>
 			<tr>
-				<td><form:input class="input" path="courseID" placeholder="Course ID" minlength="1" maxlength="30" required="true" /></td>
+				<td><form:input class="input" path="courseID" placeholder="Course ID" minlength="7" maxlength="30" required="true"
+				oninvalid="this.setCustomValidity('Course Identification Number must be at least 7 characters.)" oninput="this.setCustomValidity('')" /></td>
 			</tr>
 			<tr>
 				<td><form:errors class="error" path="courseID"/></td>
 			</tr>
 			<tr>
-				<td><form:input class="input" path="title" placeholder="Course Title" minlength="5" maxlength="200" required="true" /></td>
+				<td><form:input class="input" path="title" placeholder="Course Title" maxlength="200" required="true" /></td>
 
 			</tr>
 			<tr>
@@ -23,7 +24,7 @@
 			</tr>
 			<tr>
 
-				<td><form:input class="input" path="description" placeholder="Description" minlength="5" maxlength="200" required="true" /></td>
+				<td><form:input class="input" path="description" placeholder="Description" maxlength="200" required="true" /></td>
 
 			</tr>
 			<tr>
