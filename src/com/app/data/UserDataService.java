@@ -31,7 +31,7 @@ public class UserDataService implements DataAccessInterface<User>{
 
 	/**
 	 * READ Method
-	 * Validation Login query checks if username exists in the database.
+	 * Validation Login query checks if username exists in the database, case sensitive.
 	 * 
 	 * @param User user
 	 * @return User user || null
@@ -40,7 +40,9 @@ public class UserDataService implements DataAccessInterface<User>{
 	public User findBy(User user)
 	{
 		// READ query to identify the user by username and password
-		String sql = "SELECT * FROM studisc.users WHERE USERNAME = '"+user.getUsername()+"' AND PASSWORD = '"+user.getPassword()+"'";
+		String sql = "SELECT * FROM studisc.users WHERE "
+				+ "USERNAME = '"+user.getUsername()+"' COLLATE SQL_Latin1_General_CP1_CS_AS"
+				+ "AND PASSWORD = '"+user.getPassword()+"' COLLATE SQL_Latin1_General_CP1_CS_AS";
 		try
 		{
 			SqlRowSet srs = jdbcTemplateObject.queryForRowSet(sql);
@@ -67,7 +69,7 @@ public class UserDataService implements DataAccessInterface<User>{
 
 	/**
 	 * CREATE Method
-	 * Checks first whether username already exists. If not add to DB.
+	 * Adds new user to db. !! If using create(), findBy() first.
 	 * 
 	 * @param User user
 	 * @return boolean
@@ -75,16 +77,6 @@ public class UserDataService implements DataAccessInterface<User>{
 	@Override
 	public boolean create(User user) 
 	{
-		// READ query to see if username is already taken
-		String sql_1 = "SELECT * FROM studisc.users WHERE USERNAME = '"+user.getUsername()+"'";
-		SqlRowSet srs = jdbcTemplateObject.queryForRowSet(sql_1);
-		
-		// If first Row exists, the username is taken.
-		if(srs.next())
-		{
-			return false;
-		}
-		
 		// Create query that adds the user to the DB
 		String sql = "INSERT INTO studisc.users (" + User.getSqlParams() + ") VALUES (" + User.getSqlValues(user) + ")";
 		try

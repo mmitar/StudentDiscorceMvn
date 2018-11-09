@@ -74,7 +74,7 @@
 				<td><input type="submit" value="Add Course"/></td>
 				
 
-				<td><a href="../login/user">Login</a></td>
+				<td><a href="../dashboard">Dashboard</a></td>
 			</tr>
 		</table>
 	</form:form>

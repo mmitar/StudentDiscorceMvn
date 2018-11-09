@@ -8,5 +8,4 @@ public class DatabaseException extends RuntimeException
 	{
 		super(e);
 	}
-	
 }

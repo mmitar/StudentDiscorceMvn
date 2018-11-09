@@ -8,8 +8,8 @@ import org.springframework.web.servlet.ModelAndView;
 public class CustomExceptionHandler {
 
 	@ExceptionHandler(Exception.class)
-	public ModelAndView handleIOException(Exception e) {
-		
+	public ModelAndView handleIOException(Exception e) 
+	{
 		ModelAndView mv = new ModelAndView("error");
 		mv.addObject("error", e.toString());
 		return mv;

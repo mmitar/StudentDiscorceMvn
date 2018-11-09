@@ -132,6 +132,70 @@ public class CourseController
 		return new ModelAndView("course/courseAdd", "course", new Course());
 	}
 	
+	@RequestMapping(path="/modifyCourse", method=RequestMethod.POST)
+	public ModelAndView updateExistingCourse(@Valid @ModelAttribute("course") Course course, BindingResult validate)
+	{
+		if(validate.hasErrors())
+		{
+			return new ModelAndView("course/courseModify", "course", course);
+		}
+		
+		try
+		{
+			courseService.modifyCourse(course);
+			
+			return  new ModelAndView("course/courseView", "course", course);
+		}
+		catch(CourseNotFoundException e)
+		{
+			ModelAndView mv = new ModelAndView("course/courseModify");
+			mv.addObject("course", course);
+			mv.addObject("error", "Course ID does not match with an existing course. Please try again or add a new course.");
+			return mv;
+		}
+		catch(CourseErrorException e)
+		{
+			ModelAndView mv = new ModelAndView("course/courseModify");
+			mv.addObject("course", course);
+			mv.addObject("error", "Error modifying course. Please try again.");
+			return mv;
+		}
+	}
+	
+	@RequestMapping(path="/removeCourse", method=RequestMethod.POST)
+	public ModelAndView removeSelectedCourse(@Valid @ModelAttribute("course") Course course, BindingResult validate)
+	{
+		if(validate.hasErrors())
+		{
+			return new ModelAndView("course/courseDelete");
+		}
+		
+		try
+		{
+			
+			courseService.removeCourse(course);
+			
+			ModelAndView mv = new ModelAndView("dashboard");
+			mv.addObject("course", course);
+			mv.addObject("success", "Course successfully removed.");
+			return mv;
+		}
+		catch(CourseNotFoundException e)
+		{
+			ModelAndView mv = new ModelAndView("dashboard");
+			mv.addObject("course", course);
+			mv.addObject("error", "Course ID did not reflect any existing courses.");
+			return mv;
+		}
+		catch(CourseErrorException e)
+		{
+			ModelAndView mv = new ModelAndView("course/courseDelete");
+			mv.addObject("course", course);
+			mv.addObject("error", "Error in attempting to remove course. Please try again.");
+			return mv;
+		}
+	}
+	
 	@RequestMapping(value = "/{param}", method = RequestMethod.GET)
 	public ModelAndView urlCourseSearch(@PathVariable("param") String param) {
 		
