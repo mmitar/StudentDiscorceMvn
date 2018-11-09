@@ -37,4 +37,8 @@
 		<listener-class>org.springframework.web.context.request.RequestContextListener</listener-class>
 	</listener>
 	
+<!-- <welcome-file-list>
+       <welcome-file>/dashboard.jsp</welcome-file>
+    </welcome-file-list>  -->	
+	
 </web-app>

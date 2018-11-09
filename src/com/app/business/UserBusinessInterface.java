@@ -14,7 +14,7 @@ public interface UserBusinessInterface
 	 * @param User user
 	 * @return User
 	 */
-	public User findBy(User user) throws UserNotFoundException;
+	public User authenticateUser(User user) throws UserNotFoundException;
 	
 	/**
 	 * Creation Method that forwards the request to the DAO to create a new User.
@@ -22,5 +22,5 @@ public interface UserBusinessInterface
 	 * @throws UserFoundException, UserErrorException
 	 * @param User user
 	 */
-	public boolean create(User user) throws UserFoundException, UserErrorException;
+	public boolean addUser(User user) throws UserFoundException, UserErrorException;
 }

@@ -21,6 +21,9 @@
    <context:annotation-config/>
    
   	<bean id="viewResolver" class="org.springframework.web.servlet.view.tiles3.TilesViewResolver"/>
+  	<bean id="jspViewResolver" class="org.springframework.web.servlet.view.InternalResource‌​ViewResolver" 
+		mvc:prefix="/" mvc:suffix=".jsp" />
+
  	<bean id="tilesConfigurer" class="org.springframework.web.servlet.view.tiles3.TilesConfigurer">
 		<property name="definitions">
 			<list>
@@ -69,12 +72,18 @@
 	
 	<!-- Business Services -->
 	<bean id="userService" class="com.app.business.UserBusinessService"
-			scope="request">
+			scope="singleton">
 			
 			<aop:scoped-proxy proxy-target-class="false" />
 	</bean>
 	<bean id="courseService" class="com.app.business.CourseBusinessService"
-			scope="request">
+			scope="singleton">
+			
+			<aop:scoped-proxy proxy-target-class="false" />
+	</bean>
+	
+	<bean id="userSession" class="com.app.util.UserSession"
+			scope="session">
 			
 			<aop:scoped-proxy proxy-target-class="false" />
 	</bean>

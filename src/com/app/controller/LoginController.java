@@ -38,7 +38,7 @@ public class LoginController
 	@RequestMapping(path="/user", method=RequestMethod.GET)
 	public ModelAndView displayForm()
 	{
-		return new ModelAndView("loginUser", "user", new User());
+		return new ModelAndView("user/userLogin", "user", new User());
 	}
 	
 	/**
@@ -57,24 +57,24 @@ public class LoginController
 		if(validate.hasErrors())
 		{
 			System.out.println("user has errors: " + user);
-			return new ModelAndView("loginUser", "user", user);
+			return new ModelAndView("user/userLogin", "user", user);
 		}
 		
 		try {
 			// Call UserBusinessService.findBy() to see if user exists
-			User verifiedUser = userService.findBy(user);
+			User verifiedUser = userService.authenticateUser(user);
 			
 			// Forwards the user to the dashboard if User found
 			ModelAndView mv = new ModelAndView("dashboard");
 			mv.addObject("user", verifiedUser);
-			mv.addObject("courses", courseService.findAll());
+			mv.addObject("courses", courseService.getAllCourses());
 			return mv;
 		}
 		// 
 		catch(UserNotFoundException e)
 		{
 			System.out.println("UserNotFoundException.");
-			ModelAndView mv = new ModelAndView("loginUser");
+			ModelAndView mv = new ModelAndView("user/userLogin");
 			mv.addObject("user", user);
 			mv.addObject("error", "Username or Password is incorrect.");
 			return mv;
@@ -100,5 +100,7 @@ public class LoginController
 	{
 		return "dashboard";
 	}
+	
+	
 	
 }

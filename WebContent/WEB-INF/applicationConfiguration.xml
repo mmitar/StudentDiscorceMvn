@@ -29,8 +29,7 @@
 			</list>
 		</property>
 	</bean>
-	
-	
+		
     <!-- Derby Datasource -->
     <bean id="dataSource" destroy-method="close" class="org.apache.commons.dbcp2.BasicDataSource">
         <property name="driverClassName" value="org.apache.derby.jdbc.EmbeddedDriver" />
@@ -69,12 +68,18 @@
 	
 	<!-- Business Services -->
 	<bean id="userService" class="com.app.business.UserBusinessService"
-			scope="request">
+			scope="singleton">
 			
 			<aop:scoped-proxy proxy-target-class="false" />
 	</bean>
 	<bean id="courseService" class="com.app.business.CourseBusinessService"
-			scope="request">
+			scope="singleton">
+			
+			<aop:scoped-proxy proxy-target-class="false" />
+	</bean>
+	
+	<bean id="userSession" class="com.app.util.UserSession"
+			scope="session">
 			
 			<aop:scoped-proxy proxy-target-class="false" />
 	</bean>

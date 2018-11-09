@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
@@ -42,7 +43,7 @@ public class CourseController
 	public ModelAndView displayForm()
 	{
 		//Return new MAV
-		return new ModelAndView("courseList");
+		return new ModelAndView("course/courseList");
 	}
 	
 	/**
@@ -57,21 +58,21 @@ public class CourseController
 
 		if(validate.hasErrors())
 		{
-			return new ModelAndView("courseView", "course", course);
+			return new ModelAndView("course/courseView", "course", course);
 		}
 		
 		try
 		{
 			// Connects to the CourseBusinessService to get Course by ID
-			course = courseService.findBy(course);
+			course = courseService.getOneCourse(course);
 			
-			ModelAndView mv = new ModelAndView("courseView");
+			ModelAndView mv = new ModelAndView("course/courseView");
 			mv.addObject("course", course);
 			return mv;
 		}
 		catch(CourseNotFoundException e)
 		{
-			ModelAndView mv = new ModelAndView("courseView");
+			ModelAndView mv = new ModelAndView("course/courseView");
 			mv.addObject("course", course);
 			return mv;
 		}
@@ -91,20 +92,20 @@ public class CourseController
 		// Validate the form, if failed, return previous view
 		if(validate.hasErrors())
 		{
-			return new ModelAndView("addCourse", "course", course);
+			return new ModelAndView("course/courseAdd", "course", course);
 		}
 		
 		try {
 			// Calls CourseBusinessService.createCourse() to add new Course
-			courseService.createCourse(course);
+			courseService.addCourse(course);
 			
 			// Forward user to the course View of new class.
-			return new ModelAndView("courseView", "course", course);
+			return new ModelAndView("course/courseView", "course", course);
 		}
 		// Return Previous MAV w/ Error
 		catch(CourseFoundException e)
 		{
-			ModelAndView mv = new ModelAndView("addCourse");
+			ModelAndView mv = new ModelAndView("course/courseAdd");
 			mv.addObject("course", course);
 			mv.addObject("error", "Course ID already exists.");
 			return mv;
@@ -112,7 +113,7 @@ public class CourseController
 		// Return Previous MAV w/ Error
 		catch(CourseErrorException e)
 		{
-			ModelAndView mv = new ModelAndView("addCourse");
+			ModelAndView mv = new ModelAndView("course/courseAdd");
 			mv.addObject("course", course);
 			mv.addObject("error", "Error creating new course. Please try again.");
 			return mv;
@@ -128,7 +129,14 @@ public class CourseController
 	public ModelAndView addNewCourse()
 	{
 		//return MAV to addCourse
-		return new ModelAndView("addCourse", "course", new Course());
+		return new ModelAndView("course/courseAdd", "course", new Course());
+	}
+	
+	@RequestMapping(value = "/{param}", method = RequestMethod.GET)
+	public ModelAndView urlCourseSearch(@PathVariable("param") String param) {
+		
+		// TODO: Course Search Page. Check for User Login in Cache. Return Search Page.
+		return null;
 	}
 	
 }

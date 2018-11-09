@@ -34,7 +34,7 @@ public class RegisterController
 	@RequestMapping(path="/user", method=RequestMethod.GET)
 	public ModelAndView displayForm()
 	{
-		return new ModelAndView("registerUser", "user", new User());
+		return new ModelAndView("user/userRegister", "user", new User());
 	}
 	
 	/**
@@ -54,22 +54,22 @@ public class RegisterController
 		if(validate.hasErrors())
 		{
 			System.out.println("Register Errors.");
-			return new ModelAndView("registerUser", "user", user);
+			return new ModelAndView("user/userRegister", "user", user);
 		}
 		
 		try
 		{
 			// Calls UserBusinessService.create()
-			userService.create(user);
+			userService.addUser(user);
 
 			// Return MAV and user model to login form
-			return new ModelAndView("loginUser", "user", user);
+			return new ModelAndView("user/userLogin", "user", user);
 		}
 		// If create failed return with error
 		catch(UserFoundException e)
 		{
 			System.out.println("UserFoundException.");
-			ModelAndView mv = new ModelAndView("registerUser");
+			ModelAndView mv = new ModelAndView("userRegister");
 			mv.addObject("user", user);
 			mv.addObject("error", "Username already exists. Please try another.");
 			return mv;
@@ -77,7 +77,7 @@ public class RegisterController
 		catch(UserErrorException e)
 		{
 			System.out.println("UserErrorException.");
-			ModelAndView mv = new ModelAndView("registerUser");
+			ModelAndView mv = new ModelAndView("user/userRegister");
 			mv.addObject("user", user);
 			mv.addObject("error", "There was an issue creating your account. Please try again.");
 			return mv;

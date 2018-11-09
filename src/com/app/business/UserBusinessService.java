@@ -28,7 +28,7 @@ public class UserBusinessService implements UserBusinessInterface
 	 * @param User user
 	 * @return User
 	 */
-	public User findBy(User user) throws UserNotFoundException
+	public User authenticateUser(User user) throws UserNotFoundException
 	{
 		user = userDAO.findBy(user);
 		if(user == null)
@@ -47,7 +47,7 @@ public class UserBusinessService implements UserBusinessInterface
 	 * @param User user
 	 * @return boolean
 	 */
-	public boolean create(User user) throws UserFoundException, UserErrorException
+	public boolean addUser(User user) throws UserFoundException, UserErrorException
 	{
 		User exists = userDAO.findBy(user);
 		if(exists != null)

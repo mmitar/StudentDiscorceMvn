@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.support.rowset.SqlRowSet;
 
+import com.app.exceptions.DatabaseException;
 import com.app.model.Course;
 import com.app.model.User;
 
@@ -28,7 +29,9 @@ public class CourseDataService implements DataAccessInterface<Course>{
 	/**
 	 * Default Constructor
 	 */
-	public CourseDataService() {}
+	public CourseDataService() {
+	
+	}
 	
 	/**
 	 * READ Method
@@ -118,10 +121,8 @@ public class CourseDataService implements DataAccessInterface<Course>{
 		catch(Exception e)
 		{
 			e.printStackTrace();
+			throw new DatabaseException(e);
 		}
-		
-		// Returns null if Exception is thrown
-		return null;
 	}
 	
 	/**
@@ -215,10 +216,8 @@ public class CourseDataService implements DataAccessInterface<Course>{
 		catch(Exception e)
 		{
 			e.printStackTrace();
+			throw new DatabaseException(e);
 		}
-		
-		// Returns null if Exception is thrown
-		return null;
 	}
 
 	/**
@@ -306,10 +305,8 @@ public class CourseDataService implements DataAccessInterface<Course>{
 		catch(Exception e)
 		{
 			e.printStackTrace();
+			throw new DatabaseException(e);
 		}
-		
-		// Returns null if Exception is thrown
-		return null;
 	}
 	
 	/**
@@ -346,16 +343,8 @@ public class CourseDataService implements DataAccessInterface<Course>{
 		catch(Exception e)
 		{
 			e.printStackTrace();
+			throw new DatabaseException(e);
 		}
-		
-		// Returns false if Exception is thrown
-		return false;
-	}
-
-	@Override
-	public Course findById(int id) {
-		// TODO Auto-generated method stub
-		return null;
 	}
 	
 	@Override
@@ -370,4 +359,9 @@ public class CourseDataService implements DataAccessInterface<Course>{
 		return false;
 	}
 	
+	@Override
+	public Course findById(int id) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }

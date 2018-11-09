@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.support.rowset.SqlRowSet;
 
+import com.app.exceptions.DatabaseException;
 import com.app.model.User;
 
 public class UserDataService implements DataAccessInterface<User>{
@@ -60,10 +61,8 @@ public class UserDataService implements DataAccessInterface<User>{
 		catch(Exception e)
 		{
 			e.printStackTrace();
+			throw new DatabaseException(e);
 		}
-		
-		// Returns null if Exception is thrown
-		return null;
 	}
 
 	/**
@@ -99,10 +98,8 @@ public class UserDataService implements DataAccessInterface<User>{
 		catch(Exception e)
 		{
 			e.printStackTrace();
+			throw new DatabaseException(e);
 		}
-		
-		// Returns false if Exception is thrown
-		return false;
 	}
 
 	@Override

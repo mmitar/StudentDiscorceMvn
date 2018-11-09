@@ -11,36 +11,63 @@ public interface CourseBusinessInterface
 {
 	/**
 	 * Forwards the request to the course persistence layer.
+	 * Gets a single course by either selection or search
 	 * 
-	 * @throws CourseNotFoundException
 	 * @param Course course
 	 * @return Course
+	 * @throws CourseNotFoundException
 	 */
-	public Course findBy(Course course) throws CourseNotFoundException;
+	public Course getOneCourse(Course course) throws CourseNotFoundException;
 	
 	/**
-	 * Forwards the requests to the course persistence layer
+	 * Forwards the requests to the course persistence layer.
+	 * Returns course results based on search parameters.
 	 * 
-	 * @throws CourseErrorException
 	 * @param Course course
 	 * @return List<Course>
+	 * @throws CourseErrorException
 	 */
-	public List<Course> findAll(Course course) throws CourseErrorException;
+	public List<Course> getSearchedCourses(Course course) throws CourseErrorException;
 	
 	/**
 	 * Forwards the request to the course persistence layer.
+	 * Returns all courses at a limit.
 	 * 
-	 * @throws CourseErrorException
 	 * @return List<Course>
+	 * @throws CourseErrorException
 	 */
-	public List<Course> findAll() throws CourseErrorException;
+	public List<Course> getAllCourses() throws CourseErrorException;
 	
 	/**
-	 * Forwards the request to the course persistence layer
+	 * Forwards the request to the course persistence layer.
+	 * Adds a new course by form input
 	 * 
-	 * @throws CourseFoundException, CourseErrorException
 	 * @param Course course
 	 * @return boolean
+	 * @throws CourseFoundException
+	 * @throws CourseErrorException
 	 */
-	public boolean createCourse(Course course) throws CourseFoundException, CourseErrorException;
+	public boolean addCourse(Course course) throws CourseFoundException, CourseErrorException;
+	
+	/**
+	 * Forwards the request to the course persistence layer.
+	 * Updates changes to the selected course.
+	 * 
+	 * @param Course course
+	 * @return boolean
+	 * @throws CourseNotFoundException
+	 * @throws CourseErrorException
+	 */
+	public boolean modifyCourse(Course course) throws CourseNotFoundException, CourseErrorException;
+	
+	/**
+	 * Forwards the request to the course persistence layer.
+	 * Removes the selected course.
+	 * 
+	 * @param course
+	 * @return
+	 * @throws CourseNotFoundException
+	 * @throws CourseErrorException
+	 */
+	public boolean removeCourse(Course course) throws CourseNotFoundException, CourseErrorException;
 }

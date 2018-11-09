@@ -25,13 +25,16 @@ public class CourseBusinessService implements CourseBusinessInterface
 	
 	/**
 	 * Forwards the request to the course persistence layer.
+	 * Gets a single course by either selection or search
 	 * 
-	 * @throws CourseNotFoundException
 	 * @param Course course
 	 * @return Course
+	 * @throws CourseNotFoundException
 	 */
-	public Course findBy(Course course) throws CourseNotFoundException
+	public Course getOneCourse(Course course) throws CourseNotFoundException
 	{
+
+		
 		// Returns results from CourseDataService.findBy(course)
 		course = courseDAO.findBy(course);
 		if(course == null)
@@ -43,13 +46,14 @@ public class CourseBusinessService implements CourseBusinessInterface
 	}
 	
 	/**
-	 * Forwards the requests to the course persistence layer
+	 * Forwards the requests to the course persistence layer.
+	 * Returns course results based on search parameters.
 	 * 
-	 * @throws CourseErrorException
 	 * @param Course course
 	 * @return List<Course>
+	 * @throws CourseErrorException
 	 */
-	public List<Course> findAll(Course course) throws CourseErrorException
+	public List<Course> getSearchedCourses(Course course) throws CourseErrorException
 	{
 		// Returns results from CourseDataService.findAll(course)
 		List<Course> courses = courseDAO.findAll(course);
@@ -63,11 +67,12 @@ public class CourseBusinessService implements CourseBusinessInterface
 	
 	/**
 	 * Forwards the request to the course persistence layer.
+	 * Returns all courses at a limit.
 	 * 
-	 * @throws CourseErrorException
 	 * @return List<Course>
+	 * @throws CourseErrorException
 	 */
-	public List<Course> findAll() throws CourseErrorException
+	public List<Course> getAllCourses() throws CourseErrorException
 	{
 		// Returns results from CourseDataService.findAll()
 		List<Course> courses = courseDAO.findAll();
@@ -80,13 +85,15 @@ public class CourseBusinessService implements CourseBusinessInterface
 	}
 	
 	/**
-	 * Forwards the request to the course persistence layer
+	 * Forwards the request to the course persistence layer.
+	 * Adds a new course by form input
 	 * 
-	 * @throws CourseFoundException, CourseErrorException
 	 * @param Course course
 	 * @return boolean
+	 * @throws CourseFoundException
+	 * @throws CourseErrorException
 	 */
-	public boolean createCourse(Course course) throws CourseFoundException, CourseErrorException 
+	public boolean addCourse(Course course) throws CourseFoundException, CourseErrorException 
 	{
 		Course exists = courseDAO.findBy(course);
 		if(exists != null)
@@ -96,6 +103,58 @@ public class CourseBusinessService implements CourseBusinessInterface
 		
 		// Return results from CourseDataService.create(course)
 		boolean result = courseDAO.create(course);
+		if(result == false)
+		{
+			throw new CourseErrorException();
+		}
+		
+		return result;
+	}
+	
+	/**
+	 * Forwards the request to the course persistence layer.
+	 * Updates changes to the selected course.
+	 * 
+	 * @param Course course
+	 * @return boolean
+	 * @throws CourseNotFoundException
+	 * @throws CourseErrorException
+	 */
+	public boolean modifyCourse(Course course) throws CourseNotFoundException, CourseErrorException
+	{
+		Course exists = courseDAO.findBy(course);
+		if(exists != null)
+		{
+			throw new CourseNotFoundException();
+		}
+		
+		boolean result = courseDAO.update(course);
+		if(result == false)
+		{
+			throw new CourseErrorException();
+		}
+		
+		return result;
+	}
+	
+	/**
+	 * Forwards the request to the course persistence layer.
+	 * Removes the selected course.
+	 * 
+	 * @param course
+	 * @return
+	 * @throws CourseNotFoundException
+	 * @throws CourseErrorException
+	 */
+	public boolean removeCourse(Course course) throws CourseNotFoundException, CourseErrorException
+	{	
+		Course exists = courseDAO.findBy(course);
+		if(exists != null)
+		{
+			throw new CourseNotFoundException();
+		}
+		
+		boolean result = courseDAO.delete(course);
 		if(result == false)
 		{
 			throw new CourseErrorException();
