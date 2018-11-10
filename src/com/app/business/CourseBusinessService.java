@@ -37,6 +37,7 @@ public class CourseBusinessService implements CourseBusinessInterface
 		Course exists = courseDAO.findBy(course);
 		if(exists == null)
 		{
+			// If course does not exist, throw exception
 			throw new CourseNotFoundException();
 		}
 		
@@ -53,10 +54,11 @@ public class CourseBusinessService implements CourseBusinessInterface
 	 */
 	public List<Course> getSearchedCourses(Course course) throws CourseErrorException
 	{
-		// Returns results from CourseDataService.findAll(course)
+		// Returns results from CourseDataService.findAll(course).
 		List<Course> courses = courseDAO.findAll(course);
 		if(courses == null)
 		{
+			// If error compiling courses, throw exception
 			throw new CourseErrorException();
 		}
 		
@@ -72,10 +74,11 @@ public class CourseBusinessService implements CourseBusinessInterface
 	 */
 	public List<Course> getAllCourses() throws CourseErrorException
 	{
-		// Returns results from CourseDataService.findAll()
+		// Returns results from CourseDataService.findAll().
 		List<Course> courses = courseDAO.findAll();
 		if(courses == null)
 		{
+			// If error compiling courses, throw exception
 			throw new CourseErrorException();
 		}
 		
@@ -93,16 +96,19 @@ public class CourseBusinessService implements CourseBusinessInterface
 	 */
 	public boolean addCourse(Course course) throws CourseFoundException, CourseErrorException 
 	{
+		// Call DAO to see if course already exists
 		Course exists = courseDAO.findBy(course);
 		if(exists != null)
 		{
+			// If course exists, throw exception
 			throw new CourseFoundException();
 		}
 		
-		// Return results from CourseDataService.create(course)
+		// Call DAO to add course
 		boolean result = courseDAO.create(course);
 		if(result == false)
 		{
+			// If error creating user, throw exception
 			throw new CourseErrorException();
 		}
 		
@@ -120,15 +126,19 @@ public class CourseBusinessService implements CourseBusinessInterface
 	 */
 	public boolean modifyCourse(Course course) throws CourseNotFoundException, CourseErrorException
 	{
+		// Call DAO to find the course selected
 		Course exists = courseDAO.findBy(course);
 		if(exists == null)
 		{
+			// If course does not exist, throw exception
 			throw new CourseNotFoundException();
 		}
 		
+		// Call DAO to make the updates to the course
 		boolean result = courseDAO.update(course);
 		if(result == false)
 		{
+			// If error updating course, throw exception
 			throw new CourseErrorException();
 		}
 		
@@ -140,21 +150,25 @@ public class CourseBusinessService implements CourseBusinessInterface
 	 * Removes the selected course.
 	 * 
 	 * @param course
-	 * @return
+	 * @return boolean
 	 * @throws CourseNotFoundException
 	 * @throws CourseErrorException
 	 */
 	public boolean removeCourse(Course course) throws CourseNotFoundException, CourseErrorException
 	{	
+		// Call DAO to find the course selected
 		Course exists = courseDAO.findBy(course);
 		if(exists == null)
 		{
+			// If course does not exist, throw exception
 			throw new CourseNotFoundException();
 		}
 		
+		// Call DAO to delete the selected course
 		boolean result = courseDAO.delete(course);
 		if(result == false)
 		{
+			// If error deleting course, throw exception
 			throw new CourseErrorException();
 		}
 		

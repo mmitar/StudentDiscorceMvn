@@ -30,13 +30,14 @@ public class UserBusinessService implements UserBusinessInterface
 	 */
 	public User authenticateUser(User user) throws UserNotFoundException
 	{
+		// Call DAO to find user from the database. Matches must be exact.
 		user = userDAO.findBy(user);
 		if(user == null)
 		{
+			// If user does not exist, throw exception
 			throw new UserNotFoundException();
 		}
 	
-		// return results from UserDataService.findBy(user)
 		return user;
 	}
 	
@@ -49,15 +50,19 @@ public class UserBusinessService implements UserBusinessInterface
 	 */
 	public boolean addUser(User user) throws UserFoundException, UserErrorException
 	{
+		// Call DAO to find user in the database.
 		User exists = userDAO.findBy(user);
 		if(exists != null)
 		{
+			// If user exists, throw exception
 			throw new UserFoundException();
 		}
 		
+		// Call DAO to add a new user
 		boolean result = userDAO.create(user);
 		if(result == false)
 		{
+			// If error creating user, throw exception
 			throw new UserErrorException();
 		}
 		

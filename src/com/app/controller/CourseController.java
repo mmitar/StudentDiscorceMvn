@@ -70,7 +70,6 @@ public class CourseController
 		catch(CourseNotFoundException e)
 		{
 			ModelAndView mv = new ModelAndView("course/courseView");
-			mv.addObject("course", course);
 			return mv;
 		}
 	}
@@ -163,6 +162,7 @@ public class CourseController
 	@RequestMapping(path="/submitModifyCourse", method=RequestMethod.POST)
 	public ModelAndView submitModifyCourse(@Valid @ModelAttribute("course") Course course, BindingResult validate)
 	{
+		// Validate the form
 		if(validate.hasErrors())
 		{
 			return new ModelAndView("course/courseModify", "course", course);
@@ -170,8 +170,10 @@ public class CourseController
 		
 		try
 		{
+			// Calls the CourseBusinessService.modifyCourse to handle the update
 			courseService.modifyCourse(course);
 			
+			// Return MAV with success message
 			ModelAndView mv = new ModelAndView("course/courseView");
 			mv.addObject("course", course);
 			mv.addObject("success", "Course was successfully updated.");
@@ -204,6 +206,8 @@ public class CourseController
 	{
 		try
 		{
+			// Check if the course exists in the Database.
+			// Return MAV
 			return new ModelAndView("course/courseDelete", "course", courseService.getOneCourse(course));
 		}
 		catch(CourseNotFoundException e)
@@ -226,7 +230,7 @@ public class CourseController
 	{
 		try
 		{
-			
+			// Calls CourseBusinessService to handle the delete request
 			courseService.removeCourse(course);
 			
 			ModelAndView mv = new ModelAndView("dashboard");
@@ -250,6 +254,12 @@ public class CourseController
 		}
 	}
 	
+	/**
+	 * Takes a param that behaves a search. Currently unimplemented.
+	 * 
+	 * @param String param
+	 * @return ModelAndView
+	 */
 	@RequestMapping(value = "/{param}", method = RequestMethod.GET)
 	public ModelAndView urlCourseSearch(@PathVariable("param") String param) {
 		
