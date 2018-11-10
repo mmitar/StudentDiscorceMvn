@@ -8,10 +8,10 @@
 	<br/>
 	Are you you want to delete this course?
 	<br>
-	<form:form method="POST" modelAttribute="course" action="../course/modifyCourse">
+	<form:form method="POST" modelAttribute="course" action="../course/submitDeleteCourse">
 		<table>
 			<tr>
-				<td><form:input class="input" path="courseID" placeholder="Course ID" minlength="7" maxlength="30" required="true" readonly="true"
+				<td><form:input class="input" path="courseID" placeholder="Course ID" minlength="7" maxlength="10" required="true" readonly="true"
 				oninvalid="this.setCustomValidity('Course Identification Number must be at least 7 characters.)" oninput="this.setCustomValidity('')" /></td>
 			</tr>
 			<tr>
@@ -76,7 +76,7 @@
 				<td><input type="submit" value="Confirm Delete"/></td>
 				
 
-				<td><a href="../dashboard">Dashboard</a></td>
+				<td><a href="../login/dashboard">Dashboard</a></td>
 			</tr>
 		</table>
 	</form:form>

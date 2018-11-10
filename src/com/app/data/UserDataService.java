@@ -35,14 +35,15 @@ public class UserDataService implements DataAccessInterface<User>{
 	 * 
 	 * @param User user
 	 * @return User user || null
+	 * @throws DatabaseException
 	 */
 	@Override
 	public User findBy(User user)
 	{
 		// READ query to identify the user by username and password
 		String sql = "SELECT * FROM studisc.users WHERE "
-				+ "USERNAME = '"+user.getUsername()+"' COLLATE SQL_Latin1_General_CP1_CS_AS"
-				+ "AND PASSWORD = '"+user.getPassword()+"' COLLATE SQL_Latin1_General_CP1_CS_AS";
+				+ "USERNAME = '"+user.getUsername()+"' "
+				+ "AND PASSWORD = '"+user.getPassword()+"'";
 		try
 		{
 			SqlRowSet srs = jdbcTemplateObject.queryForRowSet(sql);
@@ -60,19 +61,21 @@ public class UserDataService implements DataAccessInterface<User>{
 			// Last Row should still be the First, and return the user
 			return User.getSqlRowSet(srs);
 		}
+		// Catches SQL / DB Connection Issues.
 		catch(Exception e)
 		{
-			e.printStackTrace();
+			// Throw Custom DB Exception
 			throw new DatabaseException(e);
 		}
 	}
 
 	/**
 	 * CREATE Method
-	 * Adds new user to db. !! If using create(), findBy() first.
+	 * Adds new user to DB << If using create(), findBy() first >>
 	 * 
 	 * @param User user
 	 * @return boolean
+	 * @throws DatabaseException
 	 */
 	@Override
 	public boolean create(User user) 
@@ -87,28 +90,29 @@ public class UserDataService implements DataAccessInterface<User>{
 			// Return Result of Insert
 			return rows == 1 ? true : false;
 		}
+		// Catches SQL / DB Connection Issues.
 		catch(Exception e)
 		{
-			e.printStackTrace();
+			// Throw Custom DB Exception
 			throw new DatabaseException(e);
 		}
 	}
 
 	@Override
-	public boolean update(User t) {
-		// TODO Auto-generated method stub
+	public boolean update(User t) 
+	{
 		return false;
 	}
 
 	@Override
-	public boolean delete(User t) {
-		// TODO Auto-generated method stub
+	public boolean delete(User t) 
+	{
 		return false;
 	}
 
 	@Override
-	public User findById(int id) {
-		// TODO Auto-generated method stub
+	public User findById(int id) 
+	{
 		return null;
 	}
 	

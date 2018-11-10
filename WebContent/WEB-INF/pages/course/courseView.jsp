@@ -1,3 +1,4 @@
+<%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <%@ taglib prefix='c' uri='http://java.sun.com/jsp/jstl/core' %>
 
 <body>
@@ -33,6 +34,21 @@
 			${course.description}
 		</div>
 		
+		
+	<form:form id="mod" method="POST" modelAttribute="course" action="../course/gotoModifyCourse">
+		<input type="hidden" name="courseID" value="${course.courseID}"/>
+		<input type="submit" value="Modify"/>
+	</form:form>
+	
+	<form:form id="del" method="POST" modelAttribute="course" action="../course/gotoDeleteCourse">
+		<input type="hidden" name="courseID" value="${course.courseID}"/>
+		<input type="submit" value="Delete"/>
+	</form:form>
+	
+	
+	<div style="color: red">${error}</div>
+	<div style="color: green">${success}</div>
+	
 	</div>
 	
 	<div class="course--users">
@@ -57,6 +73,7 @@
 		
 	</div>
 
+	
 </div>
 
 	</c:when>

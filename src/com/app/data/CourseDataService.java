@@ -29,15 +29,14 @@ public class CourseDataService implements DataAccessInterface<Course>{
 	/**
 	 * Default Constructor
 	 */
-	public CourseDataService() {
-	
-	}
+	public CourseDataService() {}
 	
 	/**
 	 * READ Method
 	 * Gets up to 100 courses and all users related to each course
 	 * 
 	 * @return List<Course>
+	 * @throws DatabaseException
 	 */
 	@Override
 	public List<Course> findAll()
@@ -118,9 +117,10 @@ public class CourseDataService implements DataAccessInterface<Course>{
 			
 			return courses;
 		}
+		// Catches SQL / DB Connection Issues.
 		catch(Exception e)
 		{
-			e.printStackTrace();
+			// Throw Custom DB Exception
 			throw new DatabaseException(e);
 		}
 	}
@@ -132,6 +132,7 @@ public class CourseDataService implements DataAccessInterface<Course>{
 	 * 
 	 * @param Course course
 	 * @return List<Course>
+	 * @throws DatabaseException
 	 */
 	@Override
 	public List<Course> findAll(Course course)
@@ -142,8 +143,8 @@ public class CourseDataService implements DataAccessInterface<Course>{
 		List<User> students = new ArrayList<User>();
 		
 		// READ query that searches approximate matches for courses searched
-		String sql_1 = "SELECT * FROM studisc.courses WHERE COURSE_ID LIKE '"+course.getCourseID()+"'"
-														+ " OR TITLE LIKE '"+course.getTitle()+"'";
+		String sql_1 = "SELECT * FROM studisc.courses WHERE COURSE_ID LIKE '%"+course.getCourseID()+"%'"
+														+ " OR TITLE LIKE '%"+course.getTitle()+"%'";
 		try
 		{
 			SqlRowSet srs_1 = jdbcTemplateObject.queryForRowSet(sql_1);
@@ -213,9 +214,10 @@ public class CourseDataService implements DataAccessInterface<Course>{
 			
 			return courses;
 		}
+		// Catches SQL / DB Connection Issues.
 		catch(Exception e)
 		{
-			e.printStackTrace();
+			// Throw Custom DB Exception
 			throw new DatabaseException(e);
 		}
 	}
@@ -226,6 +228,7 @@ public class CourseDataService implements DataAccessInterface<Course>{
 	 * 
 	 * @param Course course
 	 * @return Course
+	 * @throws DatabaseException
 	 */
 	@Override
 	public Course findBy(Course course)
@@ -302,66 +305,107 @@ public class CourseDataService implements DataAccessInterface<Course>{
 			
 			return course;
 		}
+		// Catches SQL / DB Connection Issues.
 		catch(Exception e)
 		{
-			e.printStackTrace();
+			// Throw Custom DB Exception
 			throw new DatabaseException(e);
 		}
 	}
 	
 	/**
 	 * CREATE Method
-	 * Checks if the course already exists by Course ID. If not, adds it
+	 * Adds new course to the database.
 	 * 
 	 * @param Course course
 	 * @return boolean
+	 * @throws DatabaseException
 	 */
 	@Override
 	public boolean create(Course course) 
 	{
 		try
 		{
-		// READ query that checks if the Course ID already exists so no duplicates
-		String sql_1 = "SELECT * FROM studisc.courses WHERE COURSE_ID = '" + course.getCourseID() + "'";
-		SqlRowSet srs = jdbcTemplateObject.queryForRowSet(sql_1);
-		
-		// If results exist, the course already exists. Return.
-		if(srs.next())
-		{
-			return false;
-		}
-		
-		// CREATE query that adds the course to the database
-		String sql_2 = "INSERT INTO studisc.courses ("+ Course.getSqlParams() +") VALUES ("+ Course.getSqlValues(course) +")";
+			// CREATE query that adds the course to the database
+			String sql = "INSERT INTO studisc.courses ("+ Course.getSqlParams() +") VALUES ("+ Course.getSqlValues(course) +")";
 		
 			// Execute SQL Insert
-			int rows = jdbcTemplateObject.update(sql_2);
+			int rows = jdbcTemplateObject.update(sql);
 			
 			// Return Result of Insert
 			return rows == 1 ? true : false;
 		}
+		// Catches SQL / DB Connection Issues.
 		catch(Exception e)
 		{
-			e.printStackTrace();
+			// Throw Custom DB Exception
+			throw new DatabaseException(e);
+		}
+	}
+	
+	/**
+	 * UPDATE Method
+	 * Updates all fields of selected course (except course ID) by Course ID.
+	 * 
+	 * @param Course course
+	 * @return boolean
+	 * @throws DatabaseException
+	 */
+	@Override
+	public boolean update(Course course)
+	{
+		try
+		{
+			// UPDATE query that updates the selected course params by Course ID
+			String sql = "UPDATE studisc.courses SET "+ Course.getSqlSet(course) +" WHERE COURSE_ID = '" + course.getCourseID() + "'";
+			
+			// Execute SQL Update
+			int rows = jdbcTemplateObject.update(sql);
+			
+			// Return Result of Update
+			return rows == 1 ? true : false;
+		}
+		// Catches SQL / DB Connection Issues.
+		catch(Exception e)
+		{
+			// Throw Custom DB Exception
+			throw new DatabaseException(e);
+		}
+	}
+
+	/**
+	 * DELETE Method
+	 * Removes the selected course by the Course ID.
+	 * 
+	 * @param Course course
+	 * @return boolean
+	 * @throws DatabaseException
+	 */
+	@Override
+	public boolean delete(Course course) 
+	{
+		try
+		{
+			// DELETE query that removes the course by Course ID.
+			String sql = "DELETE FROM studisc.courses WHERE COURSE_ID = '" + course.getCourseID() + "'";
+					
+			// Execute SQL Update
+			int rows = jdbcTemplateObject.update(sql);
+			
+			// Return Result of Update
+			return rows == 1 ? true : false;
+		}
+		// Catches SQL / DB Connection Issues.
+		catch(Exception e)
+		{
+			// Throw Custom DB Exception
 			throw new DatabaseException(e);
 		}
 	}
 	
 	@Override
-	public boolean update(Course t) {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
-	public boolean delete(Course t) {
-		// TODO Auto-generated method stub
-		return false;
-	}
-	
-	@Override
-	public Course findById(int id) {
-		// TODO Auto-generated method stub
+	public Course findById(int id) 
+	{
 		return null;
 	}
 }

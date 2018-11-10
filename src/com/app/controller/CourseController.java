@@ -26,12 +26,6 @@ public class CourseController
 	 */
 	@Autowired
 	private CourseBusinessInterface courseService;
-//	private ModelAndView mav;
-//	
-//	public CourseController()
-//	{
-//		this.mav = new ModelAndView();
-//	}
 	
 	/**
 	 * Navs the user to the courseList page via URI. Currently no model is currently implemented
@@ -42,7 +36,7 @@ public class CourseController
 	@RequestMapping(path="/new", method=RequestMethod.GET)
 	public ModelAndView displayForm()
 	{
-		//Return new MAV
+		//Return MAV of course List
 		return new ModelAndView("course/courseList");
 	}
 	
@@ -50,12 +44,14 @@ public class CourseController
 	 * Collects from a form post the course Id and get the course information and passes
 	 * it to the course view where all the data is populated.
 	 * 
-	 * @param course
-	 * @return ModelAndView course, courseView
+	 * @param Course course
+	 * @param BindingResult validate
+	 * @return ModelAndView
 	 */
 	@RequestMapping(path="/courseView", method=RequestMethod.POST)
 	public ModelAndView displayCourse(@Valid @ModelAttribute("course")Course course, BindingResult validate) {
 
+		// Validate the selected course in case of manipulation
 		if(validate.hasErrors())
 		{
 			return new ModelAndView("course/courseView", "course", course);
@@ -66,6 +62,7 @@ public class CourseController
 			// Connects to the CourseBusinessService to get Course by ID
 			course = courseService.getOneCourse(course);
 			
+			// Return MAV of 
 			ModelAndView mv = new ModelAndView("course/courseView");
 			mv.addObject("course", course);
 			return mv;
@@ -82,8 +79,8 @@ public class CourseController
 	 * Checks the validation of course in the addCourse form. 
 	 * Navs to the course view page if the model is valid and original
 	 * 
-	 * @param course
-	 * @param result
+	 * @param Course course
+	 * @param BindingResult validate
 	 * @return ModelAndView
 	 */
 	@RequestMapping(path="/addedCourse", method=RequestMethod.POST)
@@ -132,8 +129,39 @@ public class CourseController
 		return new ModelAndView("course/courseAdd", "course", new Course());
 	}
 	
-	@RequestMapping(path="/modifyCourse", method=RequestMethod.POST)
-	public ModelAndView updateExistingCourse(@Valid @ModelAttribute("course") Course course, BindingResult validate)
+	/**
+	 * Navs the user to the modify page of course. Checks if course exists.
+	 * 
+	 * @param Course course
+	 * @return ModelAndView
+	 */
+	@RequestMapping(path="/gotoModifyCourse", method=RequestMethod.POST)
+	public ModelAndView gotoModifyCourse(@ModelAttribute("course") Course course)
+	{
+		try
+		{
+			// Calls CourseService.getOneCourse() to get return the request course
+			// Return MAV of Edit Course page
+			return new ModelAndView("course/courseModify", "course", courseService.getOneCourse(course));
+		}
+		catch(CourseNotFoundException e)
+		{
+			ModelAndView mv = new ModelAndView("course/courseView");
+			mv.addObject("course", course);
+			mv.addObject("error", "Course ID does not match with an existing course. Please try again or add a new course.");
+			return mv;
+		}
+	}
+	
+	/**
+	 * Collects the Form Post of modified course fields. Validates the course and saves the changes.
+	 * 
+	 * @param Course course
+	 * @param BindingResult validate
+	 * @return ModelAndView
+	 */
+	@RequestMapping(path="/submitModifyCourse", method=RequestMethod.POST)
+	public ModelAndView submitModifyCourse(@Valid @ModelAttribute("course") Course course, BindingResult validate)
 	{
 		if(validate.hasErrors())
 		{
@@ -144,7 +172,10 @@ public class CourseController
 		{
 			courseService.modifyCourse(course);
 			
-			return  new ModelAndView("course/courseView", "course", course);
+			ModelAndView mv = new ModelAndView("course/courseView");
+			mv.addObject("course", course);
+			mv.addObject("success", "Course was successfully updated.");
+			return mv;
 		}
 		catch(CourseNotFoundException e)
 		{
@@ -162,14 +193,37 @@ public class CourseController
 		}
 	}
 	
-	@RequestMapping(path="/removeCourse", method=RequestMethod.POST)
-	public ModelAndView removeSelectedCourse(@Valid @ModelAttribute("course") Course course, BindingResult validate)
+	/**
+	 * Navs to the confirmation delete course view. Data is not modifiable
+	 * 
+	 * @param Course course
+	 * @return ModelAndView
+	 */
+	@RequestMapping(path="/gotoDeleteCourse", method=RequestMethod.POST)
+	public ModelAndView gotoDeleteCourse(@ModelAttribute("course") Course course)
 	{
-		if(validate.hasErrors())
+		try
 		{
-			return new ModelAndView("course/courseDelete");
+			return new ModelAndView("course/courseDelete", "course", courseService.getOneCourse(course));
 		}
-		
+		catch(CourseNotFoundException e)
+		{
+			ModelAndView mv = new ModelAndView("course/courseView");
+			mv.addObject("course", course);
+			mv.addObject("error", "Course ID does not match with an existing course. Please try again or add a new course.");
+			return mv;
+		}
+	}
+	
+	/**
+	 * Confirmation on delete view submission request. Validates and checks for course before deleting.
+	 * 
+	 * @param Course course
+	 * @return ModelAndView
+	 */
+	@RequestMapping(path="/submitDeleteCourse", method=RequestMethod.POST)
+	public ModelAndView submitDeleteCourse(@ModelAttribute("course") Course course)
+	{
 		try
 		{
 			

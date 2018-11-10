@@ -21,9 +21,10 @@
     </c:otherwise>
 </c:choose>
 		
-			<tr>
-			<td><a href="../course/addCourse">Add Course</a></td>
-			</tr>
+		<div style="color: red">${error}</div>
+		<div style="color: green">${success}</div>
+
+		<a href="../course/addCourse">Add Course</a>
 			
 		</div>
 </body>

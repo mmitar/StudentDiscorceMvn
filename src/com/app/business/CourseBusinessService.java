@@ -33,16 +33,14 @@ public class CourseBusinessService implements CourseBusinessInterface
 	 */
 	public Course getOneCourse(Course course) throws CourseNotFoundException
 	{
-
-		
 		// Returns results from CourseDataService.findBy(course)
-		course = courseDAO.findBy(course);
-		if(course == null)
+		Course exists = courseDAO.findBy(course);
+		if(exists == null)
 		{
 			throw new CourseNotFoundException();
 		}
 		
-		return course;
+		return exists;
 	}
 	
 	/**
@@ -123,7 +121,7 @@ public class CourseBusinessService implements CourseBusinessInterface
 	public boolean modifyCourse(Course course) throws CourseNotFoundException, CourseErrorException
 	{
 		Course exists = courseDAO.findBy(course);
-		if(exists != null)
+		if(exists == null)
 		{
 			throw new CourseNotFoundException();
 		}
@@ -149,7 +147,7 @@ public class CourseBusinessService implements CourseBusinessInterface
 	public boolean removeCourse(Course course) throws CourseNotFoundException, CourseErrorException
 	{	
 		Course exists = courseDAO.findBy(course);
-		if(exists != null)
+		if(exists == null)
 		{
 			throw new CourseNotFoundException();
 		}

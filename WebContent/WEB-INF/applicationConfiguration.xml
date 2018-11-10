@@ -79,7 +79,7 @@
 	</bean>
 	
 	<bean id="userSession" class="com.app.util.UserSession"
-			scope="session">
+			scope="singleton">
 			
 			<aop:scoped-proxy proxy-target-class="false" />
 	</bean>

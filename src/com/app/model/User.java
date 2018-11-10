@@ -6,7 +6,7 @@ import javax.validation.constraints.Size;
 import org.springframework.jdbc.support.rowset.SqlRowSet;
 
 /**
- * User Class with informative attributes to destinguish users from each other and validate their accounts.
+ * User Class with informative attributes to distinguish users from each other and validate their accounts.
  * @author Matt & Joey
  *
  */

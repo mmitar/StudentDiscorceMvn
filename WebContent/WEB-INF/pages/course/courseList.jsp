@@ -13,13 +13,11 @@
 	<br/>
 	<h3>Suggestions:</h3>
 	<br/>
-	<ul>
-		<a>BUS-351: Mathematics and Algorithms</a>
-		<a>CST-235: Frameworking the MVC</a>
-		<a>CST-101: Where the remote go?</a>
-	</ul>
-	<tr>
-	<td><a href="../course/addCourse">Add Course</a></td>
-	</tr>
+	
+		<a href="">BUS-351: Mathematics and Algorithms</a> <br/>
+		<a href="">CST-235: Frameworking the MVC</a>	<br/>
+		<a href="">CST-101: Where the remote go?</a>	<br/>
+	
+	
 	</div>
 </body>

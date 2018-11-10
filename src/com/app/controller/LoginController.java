@@ -56,7 +56,6 @@ public class LoginController
 		// Validate the form
 		if(validate.hasErrors())
 		{
-			System.out.println("user has errors: " + user);
 			return new ModelAndView("user/userLogin", "user", user);
 		}
 		
@@ -70,18 +69,15 @@ public class LoginController
 			mv.addObject("courses", courseService.getAllCourses());
 			return mv;
 		}
-		// 
 		catch(UserNotFoundException e)
 		{
-			System.out.println("UserNotFoundException.");
 			ModelAndView mv = new ModelAndView("user/userLogin");
 			mv.addObject("user", user);
-			mv.addObject("error", "Username or Password is incorrect.");
+			mv.addObject("error", "Username or Password is incorrect. \nFields are Case-Sensitive.");
 			return mv;
 		}
 		catch(CourseErrorException e)
 		{
-			System.out.println("CourseErrorException.");
 			ModelAndView mv = new ModelAndView("dashboard");
 			mv.addObject("user", user);
 			mv.addObject("courses", null);
@@ -100,7 +96,4 @@ public class LoginController
 	{
 		return "dashboard";
 	}
-	
-	
-	
 }

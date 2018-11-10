@@ -35,7 +35,7 @@ public class UserBusinessService implements UserBusinessInterface
 		{
 			throw new UserNotFoundException();
 		}
-		
+	
 		// return results from UserDataService.findBy(user)
 		return user;
 	}

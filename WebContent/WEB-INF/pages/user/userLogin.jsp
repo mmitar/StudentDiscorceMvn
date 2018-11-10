@@ -29,5 +29,6 @@
 	</form:form>
 	
 	<div style="color: red">${error}</div>
+	<div style="color: green">${success}</div>
 	</div>
 </body>

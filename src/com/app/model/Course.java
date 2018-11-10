@@ -212,4 +212,15 @@ public class Course
 				"'" + course.getTutorTimes() + "', " +
 				"'" + course.getImage() + "'";
 	}
+	
+	public static String getSqlSet(Course course)
+	{
+		return 	  "TITLE = '" + course.getTitle() + "', "
+				+ "DESCRIPTION = '" + course.getDescription() + "', "
+				+ "MAJOR = '" + course.getMajor() + "', "
+				+ "CLASS_LOCATION = '" + course.getClassLocation() + "', "
+				+ "CLASS_TIMES = '" + course.getClassLocation() + "', "
+				+ "TUTOR_TIMES = '" + course.getTutorTimes() + "', "
+				+ "IMAGE = '" + course.getImage() + "'";
+	}
 }
