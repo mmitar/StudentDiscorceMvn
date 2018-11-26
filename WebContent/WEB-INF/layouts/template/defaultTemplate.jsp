@@ -6,13 +6,24 @@
 	<spring:url value="/resources/layouts.css" var="layoutsCSS" />
 	<spring:url value="/resources/styles.css" var="stylesCSS" />
 	<spring:url value="/resources/layouts.js" var="layoutsJS" />
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+	
+	<!-- JQUERY EXTERNAL RESOURCES -->
+	<script type="text/javascript" src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+	<!--  <script src="http://code.jquery.com/jquery-migrate-1.4.1.js"></script>
+	  -->
+	  
+	<link rel="stylesheet" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css">
+   	<script type="text/javascript" src=" https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
+	
+	<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js" integrity="sha256-VazP97ZCwtekAsvgPBSUwPFKdrwD3unUfSGVYrahUqU=" crossorigin="anonymous"></script>
+	<!-- JQUERY EXTERNAL RESOURCES -->
 	
 	<link href="${layoutsCSS}" rel="stylesheet" type="text/css" media="all"/>
 	<link href="${stylesCSS}" rel="stylesheet" type="text/css" media="all"/>
-	<script src="${layoutsJS}"></script>
+	<script src="${layoutsJS}" type="text/javascript"></script>
 	
 	<title>CST-341 In-Class Activity</title>
+	
 </head>
 
 <body>

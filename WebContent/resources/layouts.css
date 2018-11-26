@@ -116,6 +116,10 @@
 	transition: border-radius 0.5s ease, text-shadow 0.5s ease;
 }
 
+.channel--image{
+	height: 20px;
+}
+
 .channel:hover,.channel:focus{
 	border-radius: 12px;
 	text-shadow: 0 0 2px #2a2a2a;

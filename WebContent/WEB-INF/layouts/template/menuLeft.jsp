@@ -84,24 +84,20 @@
 	<c:choose>
 		  <c:when test="${not empty courses}">
 	    	
-		    		<c:forEach items="${courses}" var="course" varStatus="status">
-		    		<c:set var="courseFormId" value="course${status.index}"/>
-		    		
-		    			<c:if test="${not empty course}">
-		    			<div class="channel" style="background: url(${course.image}) no-repeat fixed center">
+	    	<ul id="sortable">
+	    		<c:forEach items="${courses}" var="course" varStatus="status">
+	    			<c:set var="courseFormId" value="course${status.index}"/>
+	    		
+	    			<c:if test="${not empty course}">
+		    			<li class="channel" style=" background-image: url(${course.image})" >
 		    				<form:form id="${courseFormId}" method="POST" modelAttribute="course" action="../course/courseView">
-		    				
 								<input type="hidden" name="courseID" value="${course.courseID}"/>
-								
 			    				<input class="channel--input" type="submit" value="${course.courseID}"/>
-							
 							</form:form>
-								</div>
-							
-						</c:if>
-		    		</c:forEach>
-		    	
-	    	
+						</li>
+					</c:if>
+	    		</c:forEach>
+	    	</ul>
 	    </c:when> 	
     	</c:choose>
 	</div>
