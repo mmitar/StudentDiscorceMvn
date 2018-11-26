@@ -97,8 +97,8 @@ public class CourseBusinessService implements CourseBusinessInterface
 	public boolean addCourse(Course course) throws CourseFoundException, CourseErrorException 
 	{
 		// Call DAO to see if course already exists
-		Course exists = courseDAO.findBy(course);
-		if(exists != null)
+		boolean exists = courseDAO.findIfExists(course);
+		if(exists == true)
 		{
 			// If course exists, throw exception
 			throw new CourseFoundException();

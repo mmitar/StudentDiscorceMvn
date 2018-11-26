@@ -40,12 +40,12 @@ public class UserDataService implements DataAccessInterface<User>{
 	@Override
 	public User findBy(User user)
 	{
-		// READ query to identify the user by username and password
-		String sql = "SELECT * FROM studisc.users WHERE "
-				+ "USERNAME = '"+user.getUsername()+"' "
-				+ "AND PASSWORD = '"+user.getPassword()+"'";
 		try
 		{
+			// READ query to identify the user by username and password.
+			String sql = "SELECT * FROM studisc.users WHERE "
+					+ "USERNAME = '"+user.getUsername()+"' "
+					+ "AND PASSWORD = '"+user.getPassword()+"'";
 			SqlRowSet srs = jdbcTemplateObject.queryForRowSet(sql);
 			
 			// Goes to the Last Row of the Results
@@ -126,5 +126,45 @@ public class UserDataService implements DataAccessInterface<User>{
 	public List<User> findAll(User user)
 	{
 		return null;
+	}
+	
+	/**
+	 * READ Method
+	 * Validation Registration query checks if username exists in the database, case insensitive.
+	 * 
+	 * @param User user
+	 * @return boolean
+	 * @throws DatabaseException
+	 */
+	@Override 
+	public boolean findIfExists(User user)
+	{
+		try
+		{
+			// READ query to identify the user by username. Case Insensitive.
+			String sql = "SELECT * FROM studisc.users WHERE "
+					+ "UPPER(USERNAME) LIKE TRIM(UPPER('"+user.getUsername()+"'))";
+			
+			SqlRowSet srs = jdbcTemplateObject.queryForRowSet(sql);
+			
+			// Goes to the Last Row of the Results
+			srs.beforeFirst();
+			srs.last();
+			
+			// Checks the Size of the Results. If anything was found, return true
+			if(srs.getRow() > 0)
+			{
+				return true;
+			}
+			
+			// if no results were found, nothing exists.
+			return false;
+		}
+		// Catches SQL / DB Connection Issues.
+		catch(Exception e)
+		{
+			// Throw Custom DB Exception
+			throw new DatabaseException(e);
+		}
 	}
 }

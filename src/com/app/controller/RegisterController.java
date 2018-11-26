@@ -71,7 +71,7 @@ public class RegisterController
 		// If create failed return with error
 		catch(UserFoundException e)
 		{
-			ModelAndView mv = new ModelAndView("userRegister");
+			ModelAndView mv = new ModelAndView("user/userRegister");
 			mv.addObject("user", user);
 			mv.addObject("error", "Username already exists. Please try another.");
 			return mv;

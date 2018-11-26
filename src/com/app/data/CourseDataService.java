@@ -239,7 +239,8 @@ public class CourseDataService implements DataAccessInterface<Course>{
 		
 		try
 		{
-			String sql = "SELECT * FROM studisc.courses WHERE COURSE_ID = '" + course.getCourseID() + "'";
+			// READ query to select the course being called. Case insensitive.
+			String sql = "SELECT * FROM studisc.courses WHERE COURSE_ID = TRIM('" + course.getCourseID() + "')";
 			SqlRowSet srs = jdbcTemplateObject.queryForRowSet(sql);
 			
 			// Return if there are no results
@@ -326,7 +327,7 @@ public class CourseDataService implements DataAccessInterface<Course>{
 	{
 		try
 		{
-			// CREATE query that adds the course to the database
+			// CREATE query that adds the course to the database. Upper-Cases Course ID.
 			String sql = "INSERT INTO studisc.courses ("+ Course.getSqlParams() +") VALUES ("+ Course.getSqlValues(course) +")";
 		
 			// Execute SQL Insert
@@ -407,5 +408,37 @@ public class CourseDataService implements DataAccessInterface<Course>{
 	public Course findById(int id) 
 	{
 		return null;
+	}
+	
+	@Override
+	public boolean findIfExists(Course course)
+	{
+		try
+		{
+			// READ query to identify by course ID. Case Insensitive.
+			String sql = "SELECT * FROM studisc.courses WHERE "
+					+ "UPPER(COURSE_ID) LIKE TRIM(UPPER('" + course.getCourseID() + "'))";
+
+			SqlRowSet srs = jdbcTemplateObject.queryForRowSet(sql);
+			
+			// Goes to the Last Row of the Results
+			srs.beforeFirst();
+			srs.last();
+			
+			// Checks the Size of the Results. If anything was found, return true
+			if(srs.getRow() > 0)
+			{
+				return true;
+			}
+			
+			// if no results were found, nothing exists.
+			return false;
+		}
+		// Catches SQL / DB Connection Issues.
+		catch(Exception e)
+		{
+			// Throw Custom DB Exception
+			throw new DatabaseException(e);
+		}
 	}
 }

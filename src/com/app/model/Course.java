@@ -203,7 +203,7 @@ public class Course
 	
 	public static String getSqlValues(Course course)
 	{
-		return  "'" + course.getCourseID() + "', " +
+		return  "'" + course.getCourseID().toUpperCase() + "', " +
 				"'" + course.getTitle() + "', " +
 				"'" + course.getDescription() + "', " +
 				"'" + course.getMajor() + "', " +

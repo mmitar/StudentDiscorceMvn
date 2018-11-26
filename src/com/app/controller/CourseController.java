@@ -95,6 +95,9 @@ public class CourseController
 			// Calls CourseBusinessService.createCourse() to add new Course
 			courseService.addCourse(course);
 			
+			// If it was lower case after being verified and added, set to upper for the view.
+			course.setCourseID(course.getCourseID().toUpperCase());
+			
 			// Forward user to the course View of new class.
 			return new ModelAndView("course/courseView", "course", course);
 		}

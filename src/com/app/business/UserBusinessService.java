@@ -51,8 +51,8 @@ public class UserBusinessService implements UserBusinessInterface
 	public boolean addUser(User user) throws UserFoundException, UserErrorException
 	{
 		// Call DAO to find user in the database.
-		User exists = userDAO.findBy(user);
-		if(exists != null)
+		boolean exists = userDAO.findIfExists(user);
+		if(exists == true)
 		{
 			// If user exists, throw exception
 			throw new UserFoundException();

@@ -7,7 +7,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.app.exceptions.DatabaseException;
 
 /**
- * Global Exceptioning Handler Controller that catches all uncaught exceptions
+ * Global Exception Handler Controller that catches all uncaught exceptions
  *
  */
 @ControllerAdvice
