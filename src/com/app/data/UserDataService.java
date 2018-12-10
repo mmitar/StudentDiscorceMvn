@@ -11,6 +11,11 @@ import org.springframework.jdbc.support.rowset.SqlRowSet;
 import com.app.exceptions.DatabaseException;
 import com.app.model.User;
 
+/**
+ * DAO to access persistence data regarding User information
+ * 
+ * @param <User>
+ */
 public class UserDataService implements DataAccessInterface<User>{
 
 	/**
@@ -97,36 +102,6 @@ public class UserDataService implements DataAccessInterface<User>{
 			throw new DatabaseException(e);
 		}
 	}
-
-	@Override
-	public boolean update(User t) 
-	{
-		return false;
-	}
-
-	@Override
-	public boolean delete(User t) 
-	{
-		return false;
-	}
-
-	@Override
-	public User findById(int id) 
-	{
-		return null;
-	}
-	
-	@Override
-	public List<User> findAll() 
-	{
-		return null;
-	}
-	
-	@Override 
-	public List<User> findAll(User user)
-	{
-		return null;
-	}
 	
 	/**
 	 * READ Method
@@ -166,5 +141,50 @@ public class UserDataService implements DataAccessInterface<User>{
 			// Throw Custom DB Exception
 			throw new DatabaseException(e);
 		}
+	}
+	
+	/**
+	 * Inactive.
+	 */
+	@Override
+	public boolean update(User t) 
+	{
+		return false;
+	}
+
+	/**
+	 * Inactive.
+	 */
+	@Override
+	public boolean delete(User t) 
+	{
+		return false;
+	}
+
+	/**
+	 * Inactive.
+	 */
+	@Override
+	public User findById(int id) 
+	{
+		return null;
+	}
+	
+	/**
+	 * Inactive.
+	 */
+	@Override
+	public List<User> findAll() 
+	{
+		return null;
+	}
+	
+	/**
+	 * Inactive.
+	 */
+	@Override 
+	public List<User> findAll(User user)
+	{
+		return null;
 	}
 }

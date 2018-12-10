@@ -13,6 +13,11 @@ import com.app.exceptions.DatabaseException;
 import com.app.model.Course;
 import com.app.model.User;
 
+/**
+ * DAO to access persistence data regarding course information
+ * 
+ * @param <Course>
+ */
 public class CourseDataService implements DataAccessInterface<Course>{
 
 	/**
@@ -404,12 +409,14 @@ public class CourseDataService implements DataAccessInterface<Course>{
 		}
 	}
 	
-	@Override
-	public Course findById(int id) 
-	{
-		return null;
-	}
-	
+	/**
+	 * READ Method
+	 * Checks if there is any variance of the course in the database. Case insensitive.
+	 * 
+	 * @param Course course
+	 * @return boolean
+	 * @throws DatabaseException
+	 */
 	@Override
 	public boolean findIfExists(Course course)
 	{
@@ -441,4 +448,15 @@ public class CourseDataService implements DataAccessInterface<Course>{
 			throw new DatabaseException(e);
 		}
 	}
+	
+
+	/**
+	 * Inactive.
+	 */
+	@Override
+	public Course findById(int id) 
+	{
+		return null;
+	}
+	
 }

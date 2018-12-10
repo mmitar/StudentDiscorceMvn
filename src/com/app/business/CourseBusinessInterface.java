@@ -64,8 +64,8 @@ public interface CourseBusinessInterface
 	 * Forwards the request to the course persistence layer.
 	 * Removes the selected course.
 	 * 
-	 * @param course
-	 * @return
+	 * @param Course course
+	 * @return boolean
 	 * @throws CourseNotFoundException
 	 * @throws CourseErrorException
 	 */

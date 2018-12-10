@@ -26,7 +26,6 @@ public class RegisterController
 	private UserBusinessInterface userService;
 	
 	/**
-	 * displayForm
 	 * Navigates the user via URI to the register view with an empty User model
 	 * 
 	 * @return ModelAndView registerUser 
@@ -34,11 +33,11 @@ public class RegisterController
 	@RequestMapping(path="/user", method=RequestMethod.GET)
 	public ModelAndView displayForm()
 	{
+		// Nav to register view with a blank form
 		return new ModelAndView("user/userRegister", "user", new User());
 	}
 	
 	/**
-	 * registerUser
 	 * Registers the Form Post User Model for an validation errors. Navs back if error,
 	 * navs to loginUser view if successful.
 	 * 
@@ -50,9 +49,10 @@ public class RegisterController
 	@RequestMapping(path="/registerUser", method=RequestMethod.POST)
 	public ModelAndView registerUser(@Valid @ModelAttribute("user")User user, BindingResult validate)
 	{
-		// Validate the form, if errors return view
+		// Validate the form
 		if(validate.hasErrors())
 		{
+			// If error, return to register view with existing input
 			return new ModelAndView("user/userRegister", "user", user);
 		}
 		
@@ -76,6 +76,7 @@ public class RegisterController
 			mv.addObject("error", "Username already exists. Please try another.");
 			return mv;
 		}
+		// If there was a system side issue.
 		catch(UserErrorException e)
 		{
 			ModelAndView mv = new ModelAndView("user/userRegister");

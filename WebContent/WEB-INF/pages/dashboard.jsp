@@ -4,7 +4,7 @@
 
 <div class="center--body">
 <h2>Dashboard</h2>
-<br/><br/>
+<br/>
 		<c:choose>
     <c:when test="${empty user}">
     <div align="center">add new classrooms to access resources and 
@@ -14,10 +14,14 @@
     <c:otherwise>
         <h3>Welcome ${user.username}!</h3>
 			<br/>
-			<h4>Congratulations on successfully logging in!</h4>
+			<div align="center">
+				<h4>Congratulations on successfully logging in!</h4>
+			</div>
 			<br/>
-			<div align="center">add new classrooms to access resources and 
-        <br/>chat with other students</div>
+			<div align="center">
+			add new classrooms to access resources and chat with other students
+        	</div>
+        <br/>
     </c:otherwise>
 </c:choose>
 		

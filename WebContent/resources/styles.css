@@ -6,6 +6,10 @@ table,td,tr {
 	padding: 0;
 }
 
+form {
+	margin: 0;
+}
+
 ::placeholder { 
 	color: #666666; 
 	font-size: 1em;

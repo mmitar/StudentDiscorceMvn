@@ -11,8 +11,8 @@
 	
 		<div class="course--header">
 			
-			<img src="<c:url value="${course.image}"/>" alt="Picture" width="500px" height="200px">
-						
+			<img class="image--container" src="<c:url value="${course.image}"/>" alt="Picture">
+			
 			<div class="course--id">
 				${course.courseID}
 				${course.title}

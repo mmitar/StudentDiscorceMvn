@@ -2,27 +2,41 @@
 
 @import url('https://fonts.googleapis.com/css?family=Montserrat:300');
 
+html, body {
+	height: 100%;
+}
+body {
+  	margin: 0;
+  	background: black;
+}
+
 :root {
 	--color-theme1: #1e1e1e;
 	--color-theme2: #272727;
 	--color-theme4: linear-gradient(to bottom right, #313131 0%, #272727 100%);
 	--color-theme3: #333333;
-
 }
 
 * {
-	margin: 0;
 	padding: 0;
 	color: #eeeeee;
 	font-family: 'Montserrat', 'light', sans-serif;
 }
 
 .application {
-	display: flex;
-	flex-direction: row;
 	height: 100%;
+
+	display: grid;
+	grid-template-rows: [first] 50px [row2] 80px [row3] auto [row4] 20px [last];
+  	grid-template-areas:
+  		"header"
+  		"menu-left"
+  		"body"
+  		"footer";
+  		
 	background: linear-gradient(to bottom right, #1e1e1e 50%, #333333 50%);
 }
+
 
 .container {
 	display: flex;
@@ -32,55 +46,51 @@
 }
 
 .header {
-	display: flex;
+	grid-area: header;
+	
 	padding: 10px;
 	background: var(--color-theme1);
-	height: 50px;
-	justify-content: space-around;
+	display: flex;
 	flex-direction: row;
+	justify-content: space-around;
+	align-items: center;
+}
+
+.header--channels {
+	width: 30px;
+    height: 4px;
+    background-color: white;
+    margin: 4px 0;
 }
 
 .body {
+	grid-area: body;
+	
 	display: flex;
 	flex: 1 100%;
 	flex-direction: row;
     justify-content: center;
-	
+    
+    padding: 10px;
 	background: var(--color-theme4);
 	border-radius: 15px 0 15px 0;
 	box-shadow: inset 0 0 30px #1f1f1f;
 }
 
 .footer {
+	grid-area: footer;
+	
 	display: flex;
 	justify-content: center;
 	align-items: center;
+	
 	background: var(--color-theme3);
-	height: 30px;
 	
 }
 
-.menuLeft{
-	display: flex;
-	order: 1;
-	flex-direction: column;
-	background: var(--color-theme1);
-	width: 100px;
-}
-
-.menuRight {
-	display: flex;
-	order: 3;
-	flex-direction: column;
-	background: var(--color-theme3);
-	width: 200px;
-}
-
-.logo{
-	display: flex;
-	justify-content: center;
-	margin-top: 23px;
-	box-shadow: 0 5px 6px -6px #aaaaaa;
+.logo {
+	visibility: hidden;
+	display: none;
 }
 
 .center--body {
@@ -95,10 +105,11 @@
 }
 
 .channels {
-	display: flex;
-	flex-direction: column;
+	display: inherit;
+	flex-direction: inherit;
 	align-items: center;
 	justify-content: flex-start;
+	
 	margin-top: 10px;
 }
 
@@ -106,10 +117,12 @@
 	display: flex;
     align-items: center;
     justify-content: center;
+    
     font-size: 10px;
 	margin: 10px;
 	width: 50px;
 	height: 50px;
+	
 	border-radius: 36px;
 	box-shadow: 0 0 20px #0a0a0a;
 	white-space: nowrap;
@@ -214,5 +227,105 @@
 }
 
 .course--users {
-	padding: 5px;
+	visibility: hidden;
+	display: none;
 }
+
+.image--container {
+	max-width: 100%;
+	height: auto;
+}
+
+.menuLeft {
+	grid-area: menu-left;
+
+	display: flex;
+	flex-direction: row;
+	background: var(--color-theme1);
+}
+
+.menuRight {
+	grid-area: menu-right;
+	
+	visibility: hidden;
+	display: none;
+	background: var(--color-theme3);
+}
+
+.hidden {
+	visibility: hidden;
+	display: none;
+}
+
+.visible {
+	
+}
+
+.overlay {
+	position: fixed;
+	top: 0;
+	left: 0;
+	height: 100%;
+	width: 50%;
+	z-index: 10;
+}
+
+ul{
+	display:inherit;
+}
+
+@media only screen and (min-width: 430px)
+{
+	.application {
+		grid-template-columns: [start] 100px [column2] auto [end];
+		grid-template-rows: [first] 50px [row2] auto [row3] 20px [last];
+	  	grid-template-areas:
+	  		"menu-left header"
+	  		"menu-left body"
+	  		"menu-left footer";
+	}
+	
+	.menuLeft {
+		flex-direction: column;
+	}
+	
+	.logo {
+		visibility: visible;
+		display: block;
+		box-shadow: 0 5px 6px -6px #aaaaaa;
+	}
+	
+	
+	.header--channels {
+		visibility: hidden;
+		display: none;
+	}
+	
+	.course--users {
+		visibility: visible;
+		display: block;
+		padding: 5px;
+	}
+	ul {
+		display: block;
+	}
+}
+
+@media only screen and (min-width:850px) 
+{
+	.application {
+		
+		grid-template-columns: [start] 100px [column2] auto [column3] 200px [end];
+	  	grid-template-rows: [first] 50px [row2] auto [row3] 20px [last];
+	  	grid-template-areas:
+	  		"menu-left header menu-right"
+	  		"menu-left body menu-right"
+	  		"menu-left footer menu-right";
+	}
+
+	.menuRight {
+		visibility: visible;
+		display: block;
+	}
+}
+

@@ -8,7 +8,6 @@ import com.app.exceptions.DatabaseException;
 
 /**
  * Global Exception Handler Controller that catches all uncaught exceptions
- *
  */
 @ControllerAdvice
 public class CustomExceptionHandler {
@@ -22,7 +21,6 @@ public class CustomExceptionHandler {
 	@ExceptionHandler(DatabaseException.class)
 	public ModelAndView handleDatabaseException(Exception e) 
 	{
-		
 		// Return MAV with the error
 		ModelAndView mv = new ModelAndView("error");
 		mv.addObject("error", e.toString());

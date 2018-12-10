@@ -2,6 +2,11 @@ package com.app.data;
 
 import java.util.List;
 
+/**
+ * Generic DAO Interface that contracts CDI in Business Layer.
+ * 
+ * @param <T>
+ */
 public interface DataAccessInterface <T> 
 {
 	/**
@@ -29,6 +34,7 @@ public interface DataAccessInterface <T>
 	
 	/**
 	 * READ Method
+	 * 
 	 * @param int id
 	 * @return T
 	 */

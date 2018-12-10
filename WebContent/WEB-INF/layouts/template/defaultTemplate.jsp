@@ -3,16 +3,16 @@
 
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+
 	<spring:url value="/resources/layouts.css" var="layoutsCSS" />
 	<spring:url value="/resources/styles.css" var="stylesCSS" />
 	<spring:url value="/resources/layouts.js" var="layoutsJS" />
 	
 	<!-- JQUERY EXTERNAL RESOURCES -->
-	<script type="text/javascript" src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
-	<!--  <script src="http://code.jquery.com/jquery-migrate-1.4.1.js"></script>
-	  -->
+	<script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
 	  
-	<link rel="stylesheet" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css">
+	<link rel="stylesheet" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css"/>
    	<script type="text/javascript" src=" https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
 	
 	<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js" integrity="sha256-VazP97ZCwtekAsvgPBSUwPFKdrwD3unUfSGVYrahUqU=" crossorigin="anonymous"></script>
@@ -28,28 +28,28 @@
 
 <body>
 	<div class="application">
+	
 		<div class="menuLeft">
 			<tiles:insertAttribute name="menuLeft" />
 		</div>
-		<div class="container">
-			<!-- Header -->
-			<div class="header">
-				<tiles:insertAttribute name="header" />
-			</div>
-			
-			<!-- Body Page -->
-			<div class="body">
-				<tiles:insertAttribute name="body" />
-			</div>
+		<!-- Header -->
+		<div class="header">
+			<tiles:insertAttribute name="header" />
+		</div>
 		
-			<!-- Footer Page -->
-			<div class="footer">
-				<tiles:insertAttribute name="footer" />
-			</div>
+		<!-- Body Page -->
+		<div class="body">
+			<tiles:insertAttribute name="body" />
+		</div>
+	
+		<!-- Footer Page -->
+		<div class="footer">
+			<tiles:insertAttribute name="footer" />
 		</div>
 		<div class="menuRight">
 			<tiles:insertAttribute name="menuRight" />
 		</div>
+		
 	</div>
 	
 </body>

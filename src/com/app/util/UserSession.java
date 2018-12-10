@@ -13,7 +13,6 @@ import com.app.model.User;
  * User Session Cache
  * A Session state caching singleton class that is currently unimplemented.
  * Will be used to handle view consistency and retain some User session data.
- * @param <T>
  */
 @Singleton
 public class UserSession {

@@ -49,8 +49,7 @@ document.addEventListener("DOMContentLoaded", function(event)
 	}
     
     // Enable menuLeft channels to be sortable only on the y axis
-    $( "#sortable" ).sortable({
-    	axis: "y"
-    });
+    $( "#sortable" ).sortable();
+    
 });
 

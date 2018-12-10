@@ -21,6 +21,7 @@ public interface UserBusinessInterface
 	 * 
 	 * @throws UserFoundException, UserErrorException
 	 * @param User user
+	 * @return boolean
 	 */
 	public boolean addUser(User user) throws UserFoundException, UserErrorException;
 }

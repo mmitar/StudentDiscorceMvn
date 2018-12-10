@@ -30,7 +30,6 @@ public class LoginController
 	private CourseBusinessInterface courseService;
 	
 	/**
-	 * displayForm
 	 * Navigates the user via URI to the login view with an empty User model
 	 * 
 	 * @return ModelAndView loginUser
@@ -38,6 +37,7 @@ public class LoginController
 	@RequestMapping(path="/user", method=RequestMethod.GET)
 	public ModelAndView displayForm()
 	{
+		// Navigate the user to the login view with a blank form
 		return new ModelAndView("user/userLogin", "user", new User());
 	}
 	
@@ -56,6 +56,7 @@ public class LoginController
 		// Validate the form
 		if(validate.hasErrors())
 		{
+			// If form is invalid, return to login view with existing input
 			return new ModelAndView("user/userLogin", "user", user);
 		}
 		
@@ -69,15 +70,19 @@ public class LoginController
 			mv.addObject("courses", courseService.getAllCourses());
 			return mv;
 		}
+		// If the credentials do not match an existing user
 		catch(UserNotFoundException e)
 		{
+			// Return User back to the login view w/ Error Message
 			ModelAndView mv = new ModelAndView("user/userLogin");
 			mv.addObject("user", user);
 			mv.addObject("error", "Username or Password is incorrect. \nFields are Case-Sensitive.");
 			return mv;
 		}
+		// If there was a system side issue
 		catch(CourseErrorException e)
 		{
+			// Return User back to the login view w/ Error Message
 			ModelAndView mv = new ModelAndView("dashboard");
 			mv.addObject("user", user);
 			mv.addObject("courses", null);
@@ -94,6 +99,7 @@ public class LoginController
 	@RequestMapping(path="/dashboard", method=RequestMethod.GET)
 	public String viewDashboard() 
 	{
+		// Navigate the user to the dashboard
 		return "dashboard";
 	}
 }
