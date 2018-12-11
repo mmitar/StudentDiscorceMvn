@@ -4,10 +4,9 @@
 
  <body>
 	<div class="center--body">
-	<h2>Delete Course</h2>
-	<br/>
-	Are you you want to delete this course?
-	<br>
+
+		<h2>Delete Course Confirmation</h2>
+	
 	<form:form method="POST" modelAttribute="course" action="../course/submitDeleteCourse">
 		<table>
 			<tr>
@@ -71,17 +70,21 @@
 			<tr>
 				<td><form:errors class="error" path="image"/></td>
 			</tr>
-			
-			<tr> 
-				<td><input type="submit" value="Confirm Delete"/></td>
-				
-
-				<td><a href="../login/dashboard">Dashboard</a></td>
-			</tr>
 		</table>
+		
+		<div style="display:flex;">
+			<input style="flex-grow:1" type="submit" value="Confirm"/>
+			<a href="../course/${course.courseID}">Cancel</a>
+		</div>
+		
 	</form:form>
 
-	<div style="color: red">${error}</div>
+	<c:choose>
+		<c:when test="${not empty error}">
+			<div class="error">${error}</div>
+		</c:when>
+	</c:choose>
+
 </div>
 </body> 
 

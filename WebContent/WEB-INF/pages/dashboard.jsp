@@ -4,31 +4,35 @@
 
 <div class="center--body">
 <h2>Dashboard</h2>
-<br/>
-		<c:choose>
-    <c:when test="${empty user}">
-    <div align="center">add new classrooms to access resources and 
-        <br/>chat with other students</div>
-        
-    </c:when>
-    <c:otherwise>
-        <h3>Welcome ${user.username}!</h3>
-			<br/>
-			<div align="center">
-				<h4>Congratulations on successfully logging in!</h4>
-			</div>
-			<br/>
-			<div align="center">
-			add new classrooms to access resources and chat with other students
-        	</div>
-        <br/>
-    </c:otherwise>
-</c:choose>
-		
-		<div style="color: red">${error}</div>
-		<div style="color: green">${success}</div>
 
-		<a href="../course/addCourse">Add Course</a>
-			
+<c:choose>
+    <c:when test="${not empty user}">
+       
+       		<div style="text-align: center">
+        	<h3>Welcome ${user.username}!</h3>
+			<h4>Congratulations on successfully logging in!</h4>
+			</div>
+    </c:when>
+</c:choose>
+	<br/>
+    	<div style="max-width: 390px; text-align: center">
+		add a new course or access an existing courses for a plethora of totally relevant information
 		</div>
+	
+		<c:choose>
+			<c:when test="${not empty error}">
+			<br/>
+				<div class="error">${error}</div>
+			</c:when>
+		</c:choose>
+		<c:choose>
+			<c:when test="${not empty success}">
+			<br/>
+				<div class="success">${success}</div>
+			</c:when>
+		</c:choose>
+	
+	<a style="margin-left:auto; margin-top:auto" href="../login/user">Log Out</a>
+			
+	</div>
 </body>

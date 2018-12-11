@@ -8,5 +8,5 @@
 
  -->
  
-<h1>Student Discorce</h1>
+<h1 style="white-space: nowrap">Student Discorce</h1>
 

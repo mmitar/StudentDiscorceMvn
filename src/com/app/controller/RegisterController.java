@@ -15,6 +15,9 @@ import com.app.exceptions.UserErrorException;
 import com.app.exceptions.UserFoundException;
 import com.app.model.User;
 
+/**
+ * Controller for registering new users and verifying the new account and view building
+ */
 @Controller
 @RequestMapping("/register")
 public class RegisterController 

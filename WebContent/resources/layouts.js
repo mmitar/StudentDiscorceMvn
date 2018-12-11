@@ -48,8 +48,10 @@ document.addEventListener("DOMContentLoaded", function(event)
         phone.addEventListener('input', function() { phoneWriter(this);}, false);
 	}
     
-    // Enable menuLeft channels to be sortable only on the y axis
-    $( "#sortable" ).sortable();
+    // Enable menuLeft channels to be sortable . free axis for response
+    $( "#sortable" ).sortable({
+    	
+    });
     
 });
 

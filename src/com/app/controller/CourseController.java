@@ -17,6 +17,9 @@ import com.app.exceptions.CourseFoundException;
 import com.app.exceptions.CourseNotFoundException;
 import com.app.model.Course;
 
+/**
+ * Controller for handling course requests and delegating view building
+ */
 @Controller
 @RequestMapping("/course")
 public class CourseController
@@ -36,8 +39,21 @@ public class CourseController
 	@RequestMapping(path="/new", method=RequestMethod.GET)
 	public ModelAndView displayForm()
 	{
-		//Return MAV of course List
-		return new ModelAndView("course/courseList");
+		try
+		{
+			// Navigate a new MAV of course List
+			ModelAndView mv = new ModelAndView("course/courseList");
+			mv.addObject("courses", courseService.getAllCourses());
+			return mv;
+		}
+		// If there was a system side issue
+		catch(CourseErrorException e)
+		{
+			// Nav the user to the login screen if there is a system error
+			ModelAndView mv = new ModelAndView("user/userLogin");
+			mv.addObject("error", "Internal System Error. Returning user to login.");
+			return mv;
+		}
 	}
 	
 	/**
@@ -47,14 +63,17 @@ public class CourseController
 	 * @param Course course
 	 * @param BindingResult validate
 	 * @return ModelAndView
+	 * @throws CourseErrorException
 	 */
 	@RequestMapping(path="/courseView", method=RequestMethod.POST)
-	public ModelAndView displayCourse(@Valid @ModelAttribute("course")Course course, BindingResult validate) {
+	public ModelAndView displayCourse(@Valid @ModelAttribute("course")Course course, BindingResult validate) throws CourseErrorException{
 
 		// Validate the selected course in case of manipulation
 		if(validate.hasErrors())
 		{
-			return new ModelAndView("course/courseView", "course", course);
+			ModelAndView mv = new ModelAndView("course/courseView", "course", course);
+			mv.addObject("courses", courseService.getAllCourses());
+			return mv;
 		}
 		
 		try
@@ -64,12 +83,23 @@ public class CourseController
 			
 			// Return MAV of 
 			ModelAndView mv = new ModelAndView("course/courseView");
+			mv.addObject("courses", courseService.getAllCourses());
 			mv.addObject("course", course);
 			return mv;
 		}
+		// When the selected course is not actually in the system
 		catch(CourseNotFoundException e)
 		{
-			ModelAndView mv = new ModelAndView("course/courseView");
+			ModelAndView mv = new ModelAndView("dashboard");
+			mv.addObject("courses", courseService.getAllCourses());
+			mv.addObject("error", "Course Does Not Exist. Sorry!");
+			return mv;
+		}
+		// If there is a system issue. Logout the user.
+		catch(CourseErrorException e)
+		{
+			ModelAndView mv = new ModelAndView("user/userLogin");
+			mv.addObject("error", "Internal System Error. Returning user to login.");
 			return mv;
 		}
 	}
@@ -81,40 +111,44 @@ public class CourseController
 	 * @param Course course
 	 * @param BindingResult validate
 	 * @return ModelAndView
+	 * @throws CourseErrorException
 	 */
 	@RequestMapping(path="/addedCourse", method=RequestMethod.POST)
-	public ModelAndView addCourse(@Valid @ModelAttribute("course")Course course, BindingResult validate)
+	public ModelAndView addCourse(@Valid @ModelAttribute("course")Course course, BindingResult validate) throws CourseErrorException
 	{		
-		// Validate the form, if failed, return previous view
-		if(validate.hasErrors())
-		{
-			return new ModelAndView("course/courseAdd", "course", course);
-		}
-		
 		try {
+			// Validate the form, if failed, return previous view
+			if(validate.hasErrors())
+			{
+				ModelAndView mv = new ModelAndView("course/courseAdd", "course", course);
+				mv.addObject("courses", courseService.getAllCourses());
+				return mv;
+			}
+			
 			// Calls CourseBusinessService.createCourse() to add new Course
 			courseService.addCourse(course);
-			
 			// If it was lower case after being verified and added, set to upper for the view.
 			course.setCourseID(course.getCourseID().toUpperCase());
-			
 			// Forward user to the course View of new class.
-			return new ModelAndView("course/courseView", "course", course);
+			ModelAndView mv = new ModelAndView("course/courseView", "course", course);
+			mv.addObject("courses", courseService.getAllCourses());
+			return mv;
 		}
 		// Return Previous MAV w/ Error
 		catch(CourseFoundException e)
 		{
 			ModelAndView mv = new ModelAndView("course/courseAdd");
 			mv.addObject("course", course);
+			mv.addObject("courses", courseService.getAllCourses());
 			mv.addObject("error", "Course ID already exists.");
 			return mv;
 		}
-		// Return Previous MAV w/ Error
+		// If there was a system side issue
 		catch(CourseErrorException e)
 		{
-			ModelAndView mv = new ModelAndView("course/courseAdd");
-			mv.addObject("course", course);
-			mv.addObject("error", "Error creating new course. Please try again.");
+			// Nav the user to the login screen if there is a system error
+			ModelAndView mv = new ModelAndView("user/userLogin");
+			mv.addObject("error", "Internal System Error. Returning user to login.");
 			return mv;
 		}
 	}
@@ -127,8 +161,21 @@ public class CourseController
 	@RequestMapping(path="/addCourse", method=RequestMethod.GET)
 	public ModelAndView addNewCourse()
 	{
-		//return MAV to addCourse
-		return new ModelAndView("course/courseAdd", "course", new Course());
+		try 
+		{
+			// Nav User to the course view
+			ModelAndView mv = new ModelAndView("course/courseAdd", "course", new Course());
+			mv.addObject("courses", courseService.getAllCourses());
+			return mv;
+		}
+		// If there was a system side issue
+		catch(CourseErrorException e)
+		{
+			// Nav the user to the login screen if there is a system error
+			ModelAndView mv = new ModelAndView("user/userLogin");
+			mv.addObject("error", "Internal System Error. Returning user to login.");
+			return mv;
+		}
 	}
 	
 	/**
@@ -136,21 +183,33 @@ public class CourseController
 	 * 
 	 * @param Course course
 	 * @return ModelAndView
+	 * @throws CourseErrorException
 	 */
 	@RequestMapping(path="/gotoModifyCourse", method=RequestMethod.POST)
-	public ModelAndView gotoModifyCourse(@ModelAttribute("course") Course course)
+	public ModelAndView gotoModifyCourse(@ModelAttribute("course") Course course) throws CourseErrorException
 	{
 		try
 		{
 			// Calls CourseService.getOneCourse() to get return the request course
-			// Return MAV of Edit Course page
-			return new ModelAndView("course/courseModify", "course", courseService.getOneCourse(course));
+			ModelAndView mv = new ModelAndView("course/courseModify", "course", courseService.getOneCourse(course));
+			mv.addObject("courses", courseService.getAllCourses());
+			return mv;
 		}
+		// The selected Course, after being verified, does not match an existing course
 		catch(CourseNotFoundException e)
 		{
 			ModelAndView mv = new ModelAndView("course/courseView");
 			mv.addObject("course", course);
+			mv.addObject("courses", courseService.getAllCourses());
 			mv.addObject("error", "Course ID does not match with an existing course. Please try again or add a new course.");
+			return mv;
+		}
+		// If there was a system side issue
+		catch(CourseErrorException e)
+		{
+			// Nav the user to the login screen if there is a system error
+			ModelAndView mv = new ModelAndView("user/userLogin");
+			mv.addObject("error", "Internal System Error. Returning user to login.");
 			return mv;
 		}
 	}
@@ -161,24 +220,28 @@ public class CourseController
 	 * @param Course course
 	 * @param BindingResult validate
 	 * @return ModelAndView
+	 * @throws CourseErrorException
 	 */
 	@RequestMapping(path="/submitModifyCourse", method=RequestMethod.POST)
-	public ModelAndView submitModifyCourse(@Valid @ModelAttribute("course") Course course, BindingResult validate)
+	public ModelAndView submitModifyCourse(@Valid @ModelAttribute("course") Course course, BindingResult validate) throws CourseErrorException
 	{
-		// Validate the form
-		if(validate.hasErrors())
-		{
-			return new ModelAndView("course/courseModify", "course", course);
-		}
-		
 		try
 		{
+			// Validate the form
+			if(validate.hasErrors())
+			{
+				ModelAndView mv = new ModelAndView("course/courseModify", "course", course);
+				mv.addObject("courses", courseService.getAllCourses());
+				return mv;
+			}
+			
 			// Calls the CourseBusinessService.modifyCourse to handle the update
 			courseService.modifyCourse(course);
 			
 			// Return MAV with success message
 			ModelAndView mv = new ModelAndView("course/courseView");
 			mv.addObject("course", course);
+			mv.addObject("courses", courseService.getAllCourses());
 			mv.addObject("success", "Course was successfully updated.");
 			return mv;
 		}
@@ -186,14 +249,16 @@ public class CourseController
 		{
 			ModelAndView mv = new ModelAndView("course/courseModify");
 			mv.addObject("course", course);
+			mv.addObject("courses", courseService.getAllCourses());
 			mv.addObject("error", "Course ID does not match with an existing course. Please try again or add a new course.");
 			return mv;
 		}
+		// If there was a system side issue
 		catch(CourseErrorException e)
 		{
-			ModelAndView mv = new ModelAndView("course/courseModify");
-			mv.addObject("course", course);
-			mv.addObject("error", "Error modifying course. Please try again.");
+			// Nav the user to the login screen if there is a system error
+			ModelAndView mv = new ModelAndView("user/userLogin");
+			mv.addObject("error", "Internal System Error. Returning user to login.");
 			return mv;
 		}
 	}
@@ -205,19 +270,32 @@ public class CourseController
 	 * @return ModelAndView
 	 */
 	@RequestMapping(path="/gotoDeleteCourse", method=RequestMethod.POST)
-	public ModelAndView gotoDeleteCourse(@ModelAttribute("course") Course course)
+	public ModelAndView gotoDeleteCourse(@ModelAttribute("course") Course course) throws CourseErrorException
 	{
 		try
 		{
 			// Check if the course exists in the Database.
-			// Return MAV
-			return new ModelAndView("course/courseDelete", "course", courseService.getOneCourse(course));
+			course = courseService.getOneCourse(course);
+			
+			// Build view w/ course and dependencies
+			ModelAndView mv = new ModelAndView("course/courseDelete", "course", course);
+			mv.addObject("courses", courseService.getAllCourses());
+			return mv;
 		}
 		catch(CourseNotFoundException e)
 		{
 			ModelAndView mv = new ModelAndView("course/courseView");
 			mv.addObject("course", course);
+			mv.addObject("courses", courseService.getAllCourses());
 			mv.addObject("error", "Course ID does not match with an existing course. Please try again or add a new course.");
+			return mv;
+		}
+		// If there was a system side issue
+		catch(CourseErrorException e)
+		{
+			// Nav the user to the login screen if there is a system error
+			ModelAndView mv = new ModelAndView("user/userLogin");
+			mv.addObject("error", "Internal System Error. Returning user to login.");
 			return mv;
 		}
 	}
@@ -227,9 +305,10 @@ public class CourseController
 	 * 
 	 * @param Course course
 	 * @return ModelAndView
+	 * @throws CourseErrorException
 	 */
 	@RequestMapping(path="/submitDeleteCourse", method=RequestMethod.POST)
-	public ModelAndView submitDeleteCourse(@ModelAttribute("course") Course course)
+	public ModelAndView submitDeleteCourse(@ModelAttribute("course") Course course) throws CourseErrorException
 	{
 		try
 		{
@@ -238,6 +317,7 @@ public class CourseController
 			
 			ModelAndView mv = new ModelAndView("dashboard");
 			mv.addObject("course", course);
+			mv.addObject("courses", courseService.getAllCourses());
 			mv.addObject("success", "Course successfully removed.");
 			return mv;
 		}
@@ -245,29 +325,60 @@ public class CourseController
 		{
 			ModelAndView mv = new ModelAndView("dashboard");
 			mv.addObject("course", course);
+			mv.addObject("courses", courseService.getAllCourses());
 			mv.addObject("error", "Course ID did not reflect any existing courses.");
 			return mv;
 		}
+		// If there was a system side issue
 		catch(CourseErrorException e)
 		{
-			ModelAndView mv = new ModelAndView("course/courseDelete");
-			mv.addObject("course", course);
-			mv.addObject("error", "Error in attempting to remove course. Please try again.");
+			// Nav the user to the login screen if there is a system error
+			ModelAndView mv = new ModelAndView("user/userLogin");
+			mv.addObject("error", "Internal System Error. Returning user to login.");
 			return mv;
 		}
 	}
 	
 	/**
-	 * Takes a param that behaves a search. Currently unimplemented.
+	 * Takes a param that behaves a search.
 	 * 
 	 * @param String param
 	 * @return ModelAndView
+	 * @throws CourseErrorException
 	 */
 	@RequestMapping(value = "/{param}", method = RequestMethod.GET)
-	public ModelAndView urlCourseSearch(@PathVariable("param") String param) {
-		
-		// TODO: Course Search Page. Check for User Login in Cache. Return Search Page.
-		return null;
+	public ModelAndView urlCourseSearch(@PathVariable("param") String param) throws CourseErrorException 
+	{
+		try
+		{
+			// Set the Course param ID to a model
+			Course course = new Course(); 
+			course.setCourseID(param);
+			
+			// Connects to the CourseBusinessService to get Course by ID
+			course = courseService.getOneCourse(course);
+			
+			// Return MAV of 
+			ModelAndView mv = new ModelAndView("course/courseView");
+			mv.addObject("courses", courseService.getAllCourses());
+			mv.addObject("course", course);
+			return mv;
+		}
+		// When the selected course is not actually in the system
+		catch(CourseNotFoundException e)
+		{
+			ModelAndView mv = new ModelAndView("dashboard");
+			mv.addObject("courses", courseService.getAllCourses());
+			mv.addObject("error", "Course Does Not Exist. Sorry!");
+			return mv;
+		}
+		// If there was a system side issue
+		catch(CourseErrorException e)
+		{
+			// Nav the user to the login screen if there is a system error
+			ModelAndView mv = new ModelAndView("user/userLogin");
+			mv.addObject("error", "Internal System Error. Returning user to login.");
+			return mv;
+		}
 	}
-	
 }

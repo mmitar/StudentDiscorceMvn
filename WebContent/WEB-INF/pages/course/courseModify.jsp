@@ -5,7 +5,6 @@
  <body>
 	<div class="center--body">
 	<h2>Modify Course</h2>
-	<br/>
 	<form:form method="POST" modelAttribute="course" action="../course/submitModifyCourse">
 		<table>
 			<tr>
@@ -69,17 +68,21 @@
 			<tr>
 				<td><form:errors class="error" path="image"/></td>
 			</tr>
-			
-			<tr> 
-				<td><input type="submit" value="Save Changes"/></td>
-				
-
-				<td><a href="../login/dashboard">Dashboard</a></td>
-			</tr>
 		</table>
+		
+		<div style="display:flex;">
+			<input style="flex-grow:1" type="submit" value="Save"/>
+			<a href="../course/${course.courseID}">Cancel</a>
+		</div>
+		
 	</form:form>
+	
+	<c:choose>
+		<c:when test="${not empty error}">
+			<div class="error">${error}</div>
+		</c:when>
+	</c:choose>
 
-	<div style="color: red">${error}</div>
 </div>
 </body> 
 

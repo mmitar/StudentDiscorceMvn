@@ -6,8 +6,13 @@ html, body {
 	height: 100%;
 }
 body {
-  	margin: 0;
-  	background: black;
+	margin: 0;
+	background: var(--color-theme2);
+}
+
+h2 {
+	margin: 0.50em;
+	text-align: center;
 }
 
 :root {
@@ -23,7 +28,31 @@ body {
 	font-family: 'Montserrat', 'light', sans-serif;
 }
 
+/* dims */
+::-webkit-scrollbar {
+  width: 5px;
+  height: 5px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: none;
+}
+ 
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: rgba(75,75,75,.7);
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(75,75,75,.9);
+}
+
 .application {
+	min-width:320px;        /* Suppose you want minimum width of 1000px */
+	width: auto !important;  /* Firefox will set width as auto */
+	
 	height: 100%;
 
 	display: grid;
@@ -36,7 +65,6 @@ body {
   		
 	background: linear-gradient(to bottom right, #1e1e1e 50%, #333333 50%);
 }
-
 
 .container {
 	display: flex;
@@ -91,6 +119,8 @@ body {
 .logo {
 	visibility: hidden;
 	display: none;
+	margin-left: 6px;
+	margin-bottom: 10px;
 }
 
 .center--body {
@@ -98,6 +128,7 @@ body {
 	flex-direction: column;
 	justify-content: center;
 	align-items: center;
+	flex: 1 100%;
 }
 
 .title {
@@ -109,8 +140,6 @@ body {
 	flex-direction: inherit;
 	align-items: center;
 	justify-content: flex-start;
-	
-	margin-top: 10px;
 }
 
 .channel {
@@ -242,6 +271,7 @@ body {
 	display: flex;
 	flex-direction: row;
 	background: var(--color-theme1);
+	overflow-x: auto;
 }
 
 .menuRight {
@@ -250,6 +280,8 @@ body {
 	visibility: hidden;
 	display: none;
 	background: var(--color-theme3);
+	
+	overflow: auto;
 }
 
 .hidden {
@@ -270,8 +302,25 @@ body {
 	z-index: 10;
 }
 
-ul{
+ul {
 	display:inherit;
+	margin: 0;
+}
+
+.error {
+	color: rgb(255, 53, 80);
+	text-align: center;
+	margin: 5px;
+	padding: 5px;
+	border: 0.5px solid grey;
+}
+
+.success {
+	color: green;
+	text-align: center;
+	margin: 5px;
+	padding: 5px;
+	border: 0.5px solid grey;
 }
 
 @media only screen and (min-width: 430px)
@@ -287,6 +336,8 @@ ul{
 	
 	.menuLeft {
 		flex-direction: column;
+		overflow-x: hidden;
+		overflow-y: auto;
 	}
 	
 	.logo {

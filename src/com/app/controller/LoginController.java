@@ -16,6 +16,9 @@ import com.app.exceptions.CourseErrorException;
 import com.app.exceptions.UserNotFoundException;
 import com.app.model.User;
 
+/**
+ * Controller for handling existing account input and view building
+ */
 @Controller
 @RequestMapping("/login")
 public class LoginController 
@@ -82,7 +85,7 @@ public class LoginController
 		// If there was a system side issue
 		catch(CourseErrorException e)
 		{
-			// Return User back to the login view w/ Error Message
+			// Continue to the dashboard without the courses after user was validated
 			ModelAndView mv = new ModelAndView("dashboard");
 			mv.addObject("user", user);
 			mv.addObject("courses", null);
@@ -97,9 +100,34 @@ public class LoginController
 	 * @return View dashboard
 	 */
 	@RequestMapping(path="/dashboard", method=RequestMethod.GET)
-	public String viewDashboard() 
+	public ModelAndView viewDashboard() 
+	{
+		try
+		{
+			// Navigate the user to the dashboard
+			ModelAndView mv = new ModelAndView("dashboard");
+			mv.addObject("courses", courseService.getAllCourses());
+			return mv;
+		}
+		// If there was a system side issue
+		catch(CourseErrorException e)
+		{
+			// Continue to the dashboard without the courses
+			ModelAndView mv = new ModelAndView("dashboard");
+			mv.addObject("courses", null);
+			mv.addObject("error", "Error collecting Courses.");
+			return mv;
+		}
+	}
+	
+	/**
+	 * Setup Layouts for the error page
+	 */
+	@RequestMapping(path="/error", method=RequestMethod.GET)
+	public ModelAndView viewErrorPage()
 	{
 		// Navigate the user to the dashboard
-		return "dashboard";
+		ModelAndView mv = new ModelAndView("error");
+		return mv;
 	}
 }
