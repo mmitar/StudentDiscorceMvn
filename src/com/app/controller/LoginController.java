@@ -17,7 +17,7 @@ import com.app.exceptions.UserNotFoundException;
 import com.app.model.User;
 
 /**
- * Controller for handling existing account input and view building
+ * Controller for handling existing account input and view building regarding user information
  */
 @Controller
 @RequestMapping("/login")

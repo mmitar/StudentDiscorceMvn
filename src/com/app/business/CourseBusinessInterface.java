@@ -7,6 +7,9 @@ import com.app.exceptions.CourseFoundException;
 import com.app.exceptions.CourseNotFoundException;
 import com.app.model.Course;
 
+/**
+ * Contracted with the CourseBusinessService and used for CDI
+ */
 public interface CourseBusinessInterface 
 {
 	/**

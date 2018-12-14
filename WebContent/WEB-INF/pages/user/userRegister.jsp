@@ -2,7 +2,6 @@
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <%@ taglib prefix='c' uri='http://java.sun.com/jsp/jstl/core' %>
 
-<body>
 	<div class="center--body">
 	<h2>Register as a New User</h2>
 	<form:form method="POST" modelAttribute="user" action="registerUser">
@@ -33,13 +32,13 @@
 				<td><form:errors class="error" path="phone"/></td>
 			</tr>
 			<tr>
-				<td><form:input class="input" path="username" placeholder="username" maxlength="30" required="true" /></td>
+				<td><form:input class="input" path="username" placeholder="username" minlength="5" maxlength="30" required="true" /></td>
 			</tr>
 			<tr>
 				<td><form:errors class="error" path="username"/></td>
 			</tr>
 			<tr>
-				<td><form:input class="input" type="password" path="password" placeholder="password" maxlength="30" required="true" /></td>
+				<td><form:input class="input" type="password" path="password" placeholder="password" minlength="5" maxlength="30" required="true" /></td>
 			</tr>
 			<tr>
 				<td><form:errors class="error" path="password"/></td>
@@ -58,4 +57,3 @@
 		</c:when>
 	</c:choose>
 </div>
-</body>

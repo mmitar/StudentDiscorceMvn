@@ -18,7 +18,7 @@ import com.app.exceptions.CourseNotFoundException;
 import com.app.model.Course;
 
 /**
- * Controller for handling course requests and delegating view building
+ * Controller for handling course requests and delegating view building regarding courses
  */
 @Controller
 @RequestMapping("/course")

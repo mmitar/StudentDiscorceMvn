@@ -17,10 +17,12 @@ import com.app.model.User;
 @Singleton
 public class UserSession {
 
+		// HashMaps that act as caches
 		private static HashMap<String, User> session;
 		private static HashMap<String, List<Course>> courseList;
 		private static HashMap<String, Course> courses;
 		
+		// Build single instance of each cache, private so we can not re-initialize it.
 		@PostConstruct
 		private void init() {
 			session = new HashMap<String, User>();
@@ -29,10 +31,10 @@ public class UserSession {
 		}
 		
 		/**
-		 * Gets the value from the key
+		 * Gets the user that stores in the cache by user ID.
 		 * 
 		 * @param User user
-		 * @return User user
+		 * @return User
 		 */
 		public static User getUser()
 		{
@@ -60,11 +62,18 @@ public class UserSession {
 		 */
 		public static void setUser(User user)
 		{
+			// Sets the key as the user's username
 			String key = user.getUsername();
+			// sets the use in the cache by name value pair
 			session.put(key, user);
 			System.out.println("Cache put for " + key);
 		}
 		
+		/**
+		 * Gets the course List from the course. There should be one instance of it
+		 * 
+		 * @return List<Course>
+		 */
 		public static List<Course> getCourseList()
 		{
 			// States the key by username
@@ -84,13 +93,26 @@ public class UserSession {
 			}
 		}
 		
+		/**
+		 * Sets the Course List to a cache
+		 * 
+		 * @param cslst List<Course>
+		 */
 		public static void setCourseList(List<Course> cslst)
 		{
+			// Sets the key as courseList. Generic cuz there is one instance.
 			String key = "courseList";
+			// puts the list in the hashmap by name value pair
 			courseList.put(key, cslst);
 			System.out.println("Cache put for " + key);
 		}
 		
+		/**
+		 * Gets the selected course out from the cache
+		 * 
+		 * @param cs Course
+		 * @return Course
+		 */
 		public static Course getCourse(Course cs)
 		{
 			// States the key by username
@@ -110,9 +132,16 @@ public class UserSession {
 			}
 		}
 		
+		/**
+		 * Sets the course inside the cache 
+		 * 
+		 * @param cs Course
+		 */
 		public static void setCourse(Course cs)
 		{
+			// sets the key to the course ID
 			String key = cs.getCourseID();
+			// puts the course the cache by name value pair
 			courses.put(key, cs);
 			System.out.println("Cache put for " + key);
 		}

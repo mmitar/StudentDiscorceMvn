@@ -5,6 +5,8 @@ import javax.validation.constraints.Size;
 
 import org.springframework.jdbc.support.rowset.SqlRowSet;
 
+import com.app.util.Util;
+
 /**
  * User Class with informative attributes to distinguish users from each other and validate their accounts.
  * @author Matt & Joey
@@ -149,12 +151,12 @@ public class User
 	
 	public static String getSqlValues(User user)
 	{
-		return  "'" + user.getUsername() + "', " +
-				"'" + user.getPassword() + "', " +
-				"'" + user.getFirstName() + "', " +
-				"'" + user.getLastName() + "', " +
-				"'" + user.getEmail() + "', " +
-				"'" + user.getPhone() + "', " +
-				"'" + user.getPermission() + "'";
+		return  "'" + Util.typeSafe(user.getUsername()) + "', " +
+				"'" + Util.typeSafe(user.getPassword()) + "', " +
+				"'" + Util.typeSafe(user.getFirstName()) + "', " +
+				"'" + Util.typeSafe(user.getLastName()) + "', " +
+				"'" + Util.typeSafe(user.getEmail()) + "', " +
+				"'" + Util.typeSafe(user.getPhone()) + "', " +
+				"'" + Util.typeSafe(user.getPermission()) + "'";
 	}
 }

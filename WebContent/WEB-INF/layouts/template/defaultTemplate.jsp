@@ -5,22 +5,31 @@
 <head>
 	<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 
-	<spring:url value="/resources/layouts.css" var="layoutsCSS" />
-	<spring:url value="/resources/styles.css" var="stylesCSS" />
-	<spring:url value="/resources/layouts.js" var="layoutsJS" />
+	<!-- && BOOTSTRAP DEPENDENCIES -->
+	<!-- ## BOOTSTRAP DEPENDENCIES -->
 	
-	<!-- JQUERY EXTERNAL RESOURCES -->
+	<!-- && ICON DEPENDENCIES -->
+	<link rel='stylesheet' href='https://use.fontawesome.com/releases/v5.5.0/css/all.css' integrity='sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU' crossorigin='anonymous'>
+	<!-- ## ICON DEPENDENCIES -->
+	
+	<!-- && JQUERY DEPENDENCIES -->
 	<script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
 	  
 	<link rel="stylesheet" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css"/>
    	<script type="text/javascript" src=" https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
 	
 	<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js" integrity="sha256-VazP97ZCwtekAsvgPBSUwPFKdrwD3unUfSGVYrahUqU=" crossorigin="anonymous"></script>
-	<!-- JQUERY EXTERNAL RESOURCES -->
+	<!-- ## JQUERY DEPENDENCIES -->
+	
+	<!-- && INTERAL RESOURCES -->
+	<spring:url value="/resources/layouts.css" var="layoutsCSS" />
+	<spring:url value="/resources/styles.css" var="stylesCSS" />
+	<spring:url value="/resources/layouts.js" var="layoutsJS" />
 	
 	<link href="${layoutsCSS}" rel="stylesheet" type="text/css" media="all"/>
 	<link href="${stylesCSS}" rel="stylesheet" type="text/css" media="all"/>
 	<script src="${layoutsJS}" type="text/javascript"></script>
+	<!-- ## INTERNAL RESOURCES -->
 	
 	<title>CST-341 In-Class Activity</title>
 	

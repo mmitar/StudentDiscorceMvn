@@ -10,6 +10,9 @@ import com.app.exceptions.CourseFoundException;
 import com.app.exceptions.CourseNotFoundException;
 import com.app.model.Course;
 
+/**
+ * Delegates requests between layers and enforces business logic regarding course data.
+ */
 public class CourseBusinessService implements CourseBusinessInterface
 {
 	/**

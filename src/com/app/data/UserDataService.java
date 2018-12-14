@@ -10,6 +10,7 @@ import org.springframework.jdbc.support.rowset.SqlRowSet;
 
 import com.app.exceptions.DatabaseException;
 import com.app.model.User;
+import com.app.util.Util;
 
 /**
  * DAO to access persistence data regarding User information
@@ -49,8 +50,9 @@ public class UserDataService implements DataAccessInterface<User>{
 		{
 			// READ query to identify the user by username and password.
 			String sql = "SELECT * FROM studisc.users WHERE "
-					+ "USERNAME = '"+user.getUsername()+"' "
-					+ "AND PASSWORD = '"+user.getPassword()+"'";
+					+ "USERNAME = '"+ Util.typeSafe(user.getUsername()) +"' "
+					+ "AND PASSWORD = '"+ Util.typeSafe(user.getPassword()) +"'";
+			
 			SqlRowSet srs = jdbcTemplateObject.queryForRowSet(sql);
 			
 			// Goes to the Last Row of the Results
@@ -118,7 +120,7 @@ public class UserDataService implements DataAccessInterface<User>{
 		{
 			// READ query to identify the user by username. Case Insensitive.
 			String sql = "SELECT * FROM studisc.users WHERE "
-					+ "UPPER(USERNAME) LIKE TRIM(UPPER('"+user.getUsername()+"'))";
+					+ "UPPER(USERNAME) LIKE TRIM(UPPER('"+ Util.typeSafe(user.getUsername()) +"'))";
 			
 			SqlRowSet srs = jdbcTemplateObject.queryForRowSet(sql);
 			

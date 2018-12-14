@@ -10,6 +10,14 @@ form {
 	margin: 0;
 }
 
+img {
+	max-width: 100%;
+	height: auto;
+/* 	border: unset; */
+/* 	padding: 0; */
+/* 	margin: 0; */
+}
+
 ::placeholder { 
 	color: #666666; 
 	font-size: 1em;
@@ -26,6 +34,7 @@ input[type=submit],a {
 	font-size: 1em;
 	margin: 2.5px;
 	transition: border-radius 0.5s ease, text-shadow 0.5s ease;
+	font-weight: bold;
 }
 
 a {
@@ -36,6 +45,7 @@ a {
 input[type=submit]:hover,input[type=submit]:focus,a:hover,a:focus {
 	border-radius: 12px;
 	text-shadow: 0 0 0.5px #2a2a2a;
+	text-decoration: none;
 }
 
 .input {

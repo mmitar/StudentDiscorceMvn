@@ -1,13 +1,12 @@
 <%@ taglib prefix='c' uri='http://java.sun.com/jsp/jstl/core' %>
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 
-
 <!-- When There Is No User model set to the view -->
 <!-- LOGO navs to the user Login Screen -->
 <c:choose>
 	<c:when test="${empty user || user.username == null}">
 		<div class="logo">
-			<a href="#" style="background: none">
+<!-- 			<a href="#" style="background: none"> -->
 				<svg width="76" height="38" xmlns="http://www.w3.org/2000/svg" xmlns:svg="http://www.w3.org/2000/svg">
 				
 				  <defs>
@@ -25,14 +24,14 @@
 				   <line stroke="#000000" stroke-width="2" x1="3" x2="74.5" y1="35" y2="35"/>	<!-- bottom -->
 				
 				</svg>
-			</a>
+<!-- 			</a> -->
 		</div>
 	</c:when>
 	<c:otherwise>
 		<!-- When a user model is recognized on the view -->
 		<!-- LOGO that Navigates to the dashboard -->
 		<div class="logo">
-			<a href="#" style="background: none">
+<!-- 			<a href="#" style="background: none"> -->
 				<svg width="76" height="38" xmlns="http://www.w3.org/2000/svg" xmlns:svg="http://www.w3.org/2000/svg">
 				
 				  <defs>
@@ -50,7 +49,7 @@
 				   <line stroke="#000000" stroke-width="2" x1="3" x2="74.5" y1="35" y2="35"/>	<!-- bottom -->
 				
 				</svg>
-			</a>
+<!-- 			</a> -->
 		</div>
 	</c:otherwise>
 </c:choose>
@@ -107,13 +106,13 @@
 	<c:otherwise>
     	<!-- When no model for Course List is recognized by the view -->
   		<!-- Course Placeholders -->
-	   	<div class="channels">
+	   	<div class="channels" style="justify-content: center">
 			
 			<div class="channel placeholder"></div>
 			<div class="channel placeholder"></div>
 			<div class="channel placeholder"></div>
 			<div class="channel placeholder"></div>
-			<div class="channel placeholder"></div>
+			
 		</div>
    
    </c:otherwise>

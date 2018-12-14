@@ -8,6 +8,8 @@ import javax.validation.constraints.Size;
 
 import org.springframework.jdbc.support.rowset.SqlRowSet;
 
+import com.app.util.Util;
+
 /**
  * Course model used in CRUD and displays detailed information about an available course to join as a student.
  * @author Matt & Joey
@@ -203,24 +205,29 @@ public class Course
 	
 	public static String getSqlValues(Course course)
 	{
-		return  "'" + course.getCourseID().toUpperCase() + "', " +
-				"'" + course.getTitle() + "', " +
-				"'" + course.getDescription() + "', " +
-				"'" + course.getMajor() + "', " +
-				"'" + course.getClassLocation() + "', " +
-				"'" + course.getClassTimes() + "', " +
-				"'" + course.getTutorTimes() + "', " +
-				"'" + course.getImage() + "'";
+		return  "'" + Util.typeSafe(course.getCourseID().toUpperCase()) + "', " +
+				"'" + Util.typeSafe(course.getTitle()) + "', " +
+				"'" + Util.typeSafe(course.getDescription()) + "', " +
+				"'" + Util.typeSafe(course.getMajor()) + "', " +
+				"'" + Util.typeSafe(course.getClassLocation()) + "', " +
+				"'" + Util.typeSafe(course.getClassTimes()) + "', " +
+				"'" + Util.typeSafe(course.getTutorTimes()) + "', " +
+				"'" + Util.typeSafe(course.getImage()) + "'";
 	}
 	
 	public static String getSqlSet(Course course)
 	{
-		return 	  "TITLE = '" + course.getTitle() + "', "
-				+ "DESCRIPTION = '" + course.getDescription() + "', "
-				+ "MAJOR = '" + course.getMajor() + "', "
-				+ "CLASS_LOCATION = '" + course.getClassLocation() + "', "
-				+ "CLASS_TIMES = '" + course.getClassLocation() + "', "
-				+ "TUTOR_TIMES = '" + course.getTutorTimes() + "', "
-				+ "IMAGE = '" + course.getImage() + "'";
+		return 	  "TITLE = '" + Util.typeSafe(course.getTitle()) + "', "
+				+ "DESCRIPTION = '" + typeSafe(course.getDescription()) + "', "
+				+ "MAJOR = '" + Util.typeSafe(course.getMajor()) + "', "
+				+ "CLASS_LOCATION = '" + Util.typeSafe(course.getClassLocation()) + "', "
+				+ "CLASS_TIMES = '" + Util.typeSafe(course.getClassTimes()) + "', "
+				+ "TUTOR_TIMES = '" + Util.typeSafe(course.getTutorTimes()) + "', "
+				+ "IMAGE = '" + Util.typeSafe(course.getImage()) + "'";
+	}
+	
+	private static String typeSafe(String param)
+	{
+		return param.replace("'","''");
 	}
 }

@@ -5,6 +5,9 @@ import com.app.exceptions.UserFoundException;
 import com.app.exceptions.UserNotFoundException;
 import com.app.model.User;
 
+/**
+ * Contracted with the UserBusinessService and used for CDI
+ */
 public interface UserBusinessInterface 
 {
 	/**

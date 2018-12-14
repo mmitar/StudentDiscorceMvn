@@ -8,6 +8,9 @@ import com.app.exceptions.UserFoundException;
 import com.app.exceptions.UserNotFoundException;
 import com.app.model.User;
 
+/**
+ * Delegates requests between layers and enforces business logic regarding user data
+ */
 public class UserBusinessService implements UserBusinessInterface 
 {
 	/**

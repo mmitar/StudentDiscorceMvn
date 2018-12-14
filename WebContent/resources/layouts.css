@@ -2,12 +2,18 @@
 
 @import url('https://fonts.googleapis.com/css?family=Montserrat:300');
 
+* {
+	font-family: 'Montserrat', 'light', sans-serif;
+	color: #eeeeee;
+	padding: 0;
+}
+
 html, body {
 	height: 100%;
 }
 body {
-	margin: 0;
 	background: var(--color-theme2);
+	margin: 0 !important;
 }
 
 h2 {
@@ -20,12 +26,6 @@ h2 {
 	--color-theme2: #272727;
 	--color-theme4: linear-gradient(to bottom right, #313131 0%, #272727 100%);
 	--color-theme3: #333333;
-}
-
-* {
-	padding: 0;
-	color: #eeeeee;
-	font-family: 'Montserrat', 'light', sans-serif;
 }
 
 /* dims */
@@ -50,7 +50,7 @@ h2 {
 }
 
 .application {
-	min-width:320px;        /* Suppose you want minimum width of 1000px */
+	min-width:320px;         /* Minimum width of 320px */
 	width: auto !important;  /* Firefox will set width as auto */
 	
 	height: 100%;
@@ -63,6 +63,8 @@ h2 {
   		"body"
   		"footer";
   		
+  	grid-row-gap: 0;
+  	grid-column-gap: 0;
 	background: linear-gradient(to bottom right, #1e1e1e 50%, #333333 50%);
 }
 
@@ -76,12 +78,27 @@ h2 {
 .header {
 	grid-area: header;
 	
-	padding: 10px;
-	background: var(--color-theme1);
 	display: flex;
 	flex-direction: row;
 	justify-content: space-around;
-	align-items: center;
+	
+	padding: 10px;
+	background: var(--color-theme1);
+	line-height: 0%;
+}
+
+.header > h1 {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	white-space: nowrap;
+	
+	font-size: 1.6em;
+	margin: 0;
+}
+
+.header--logout {
+	
 }
 
 .header--channels {
@@ -95,14 +112,16 @@ h2 {
 	grid-area: body;
 	
 	display: flex;
-	flex: 1 100%;
 	flex-direction: row;
     justify-content: center;
     
+    flex: 1 100%;
     padding: 10px;
 	background: var(--color-theme4);
 	border-radius: 15px 0 15px 0;
 	box-shadow: inset 0 0 30px #1f1f1f;
+	
+	overflow-wrap: break-word;
 }
 
 .footer {
@@ -119,8 +138,10 @@ h2 {
 .logo {
 	visibility: hidden;
 	display: none;
-	margin-left: 6px;
+	margin-left: auto;
+	margin-right: auto;
 	margin-bottom: 10px;
+	margin-top: 11px;
 }
 
 .center--body {
@@ -139,7 +160,7 @@ h2 {
 	display: inherit;
 	flex-direction: inherit;
 	align-items: center;
-	justify-content: flex-start;
+	width: 100%;
 }
 
 .channel {
@@ -170,6 +191,7 @@ h2 {
 .channel--input {
 	background: none;
 	color: inherit;
+	font-weight: bold;
 }
 
 .stories {
@@ -261,7 +283,7 @@ h2 {
 }
 
 .image--container {
-	max-width: 100%;
+	width: 100%;
 	height: auto;
 }
 
@@ -323,6 +345,11 @@ ul {
 	border: 0.5px solid grey;
 }
 
+.fas {  				/* Log out Icon Dependency */
+	font-size: 1.5em; 
+	line-height: 0.7;
+}
+
 @media only screen and (min-width: 430px)
 {
 	.application {
@@ -343,7 +370,8 @@ ul {
 	.logo {
 		visibility: visible;
 		display: block;
-		box-shadow: 0 5px 6px -6px #aaaaaa;
+		box-shadow: -1px 1px 10px -3px #aaaaaa;
+
 	}
 	
 	
@@ -359,6 +387,17 @@ ul {
 	}
 	ul {
 		display: block;
+	}
+}
+
+@media only screen and (min-width: 500px)
+{
+	.header > h1 {
+		font-size: 2em;
+	}
+	.fas {				 /* Log out Icon Dependency */
+		font-size: 2em;
+		line-height: 0.45;
 	}
 }
 

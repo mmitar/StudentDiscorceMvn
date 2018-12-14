@@ -2,7 +2,6 @@
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <%@ taglib prefix='c' uri='http://java.sun.com/jsp/jstl/core' %>
 
-<body>
 	<div class="center--body">
 	<h2>Login as an Existing User</h2>
 	<form:form method="POST" modelAttribute="user" action="../login/validateUser">
@@ -39,4 +38,3 @@
 	</c:choose>
 	
 	</div>
-</body>

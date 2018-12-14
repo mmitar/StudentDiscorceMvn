@@ -2,7 +2,6 @@
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <%@ taglib prefix='c' uri='http://java.sun.com/jsp/jstl/core' %>
 
- <body>
 	<div class="center--body">
 	<h2>Add New Course</h2>
 	<form:form method="POST" modelAttribute="course" action="../course/addedCourse">
@@ -84,5 +83,3 @@
 	</c:choose>
 	
 </div>
-</body> 
-

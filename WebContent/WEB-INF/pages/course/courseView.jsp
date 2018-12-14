@@ -1,8 +1,6 @@
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <%@ taglib prefix='c' uri='http://java.sun.com/jsp/jstl/core' %>
 
-<body>
-
 <c:choose>
 	<c:when test="${not empty course}">
 <div class="course-container">
@@ -11,7 +9,7 @@
 	
 		<div class="course--header">
 			
-			<img class="image--container" src="<c:url value="${course.image}"/>" alt="Picture">
+			<img src="<c:url value="${course.image}"/>" alt="No Image Available" onerror="this.style.display='none'" >
 			
 			<div class="course--id">
 				${course.courseID}
@@ -100,5 +98,3 @@
 	</c:otherwise>
 
 </c:choose>
-
-</body>

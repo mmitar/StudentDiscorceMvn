@@ -1,4 +1,4 @@
-<body>
+
 	<div class="center--body">
 	<h2>Search a Class</h2>
 	
@@ -20,4 +20,3 @@
 	
 	
 	</div>
-</body>
