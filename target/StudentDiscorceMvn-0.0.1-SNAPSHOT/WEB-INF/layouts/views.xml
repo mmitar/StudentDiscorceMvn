@@ -5,4 +5,10 @@
 	<definition name="*" extends="DefaultTemplate">
     	<put-attribute name="body" value="/WEB-INF/pages/{1}.jsp" />
 	</definition>
+	<definition name="course/*" extends="DefaultTemplate">
+    	<put-attribute name="body" value="/WEB-INF/pages/course/{1}.jsp" />
+	</definition>
+	<definition name="user/*" extends="DefaultTemplate">
+    	<put-attribute name="body" value="/WEB-INF/pages/user/{1}.jsp" />
+	</definition>
 </tiles-definitions>

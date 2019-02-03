@@ -21,9 +21,6 @@
    <context:annotation-config/>
    
   	<bean id="viewResolver" class="org.springframework.web.servlet.view.tiles3.TilesViewResolver"/>
-  	<bean id="jspViewResolver" class="org.springframework.web.servlet.view.InternalResource‌​ViewResolver" 
-		mvc:prefix="/" mvc:suffix=".jsp" />
-
  	<bean id="tilesConfigurer" class="org.springframework.web.servlet.view.tiles3.TilesConfigurer">
 		<property name="definitions">
 			<list>
@@ -32,14 +29,29 @@
 			</list>
 		</property>
 	</bean>
-	
-	
+		
     <!-- Derby Datasource -->
-    <bean id="dataSource" destroy-method="close" class="org.apache.commons.dbcp2.BasicDataSource">
+    <!-- <bean id="dataSource" destroy-method="close" class="org.apache.commons.dbcp2.BasicDataSource">
         <property name="driverClassName" value="org.apache.derby.jdbc.EmbeddedDriver" />
         <property name="url" value="jdbc:derby:/Users/Matt/MySpringDB"/>
         <property name="username" value="user" />
         <property name="password" value="derby" />
+    </bean> -->
+    
+    <!-- MySQL Datasource -->
+    <!-- <bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+    	<property name="driverClassName" value="com.mysql.jdbc.Driver" />
+    	<property name="url" value="jdbc:mysql://localhost:3306/studisc" />
+    	<property name="username" value="root" />
+    	<property name="password" value="root" />
+    </bean>  -->
+    
+     <!-- Azure MySQL Datasource -->
+    <bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+    	<property name="driverClassName" value="com.mysql.jdbc.Driver" />
+        <property name="url" value="jdbc:mysql://127.0.0.1:50844/studisc" />
+    	<property name="username" value="azure" />
+    	<property name="password" value="6#vWHD_$" />
     </bean>
   
     <!-- Setup Transaction Manager -->
@@ -83,7 +95,7 @@
 	</bean>
 	
 	<bean id="userSession" class="com.app.util.UserSession"
-			scope="session">
+			scope="singleton">
 			
 			<aop:scoped-proxy proxy-target-class="false" />
 	</bean>

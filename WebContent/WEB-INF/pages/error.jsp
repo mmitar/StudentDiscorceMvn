@@ -7,9 +7,9 @@
 			<h3>Error Page</h3>
 	
 			<div style="max-width: 390px; text-align: center">
-				<!-- ${error} -->
-				Internal Server Error. Please Continue to the Login Screen.
-			</div>
+				${error}
+<!-- 				Internal Server Error. Please Continue to the Login Screen.
+ -->			</div>
 		</div>
 		<a style="margin-left: auto; margin-top: auto" href="../login/user">Return to Login</a>
 	</div>

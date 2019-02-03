@@ -2,10 +2,8 @@
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <%@ taglib prefix='c' uri='http://java.sun.com/jsp/jstl/core' %>
 
-<body>
 	<div class="center--body">
 	<h2>Login as an Existing User</h2>
-	<br/>
 	<form:form method="POST" modelAttribute="user" action="../login/validateUser">
 		<table>
 			<tr>
@@ -20,14 +18,23 @@
 			<tr>
 				<td><form:errors class="error" path="password"/></td>
 			</tr>
-			<tr>
-				<td><input type="submit" value="Login"/></td>
-				<td><a href="../register/user">Register</a></td>
-				
-			</tr>
 		</table>
+		
+		<div style="display:flex;">
+			<input style="flex-grow:1" type="submit" value="Login"/>
+			<a href="../register/user">Register</a>
+		</div>
 	</form:form>
 	
-	<div style="color: red">${error}</div>
+	<c:choose>
+		<c:when test="${not empty error}">
+			<div class="error">${error}</div>
+		</c:when>
+	</c:choose>
+	<c:choose>
+		<c:when test="${not empty success}">
+			<div class="success">${success}</div>
+		</c:when>
+	</c:choose>
+	
 	</div>
-</body>

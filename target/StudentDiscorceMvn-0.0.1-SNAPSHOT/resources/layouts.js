@@ -1,21 +1,3 @@
-document.addEventListener("DOMContentLoaded", function(event) {
-    console.log("DOM fully loaded and parsed");
-    
-    let phone = document.getElementById('phoneInput');
-    phone.addEventListener('input', function() { phoneWriter(this);}, false);
-    
-  });
-
-function clickThis(evt){
-	
-	if(evt.innerHTML == "cheesecake") {
-		evt.innerHTML = "milkshake";
-	}
-	else {
-		evt.innerHTML = "cheesecake";
-		}
-}
-
 
 function phoneWriter(evt) {
 
@@ -53,4 +35,23 @@ function isInt(value) {
          parseInt(Number(value)) == value && 
          !isNaN(parseInt(value, 10));
 }
+
+/** DOM LISTENER. Load when ready. **/
+document.addEventListener("DOMContentLoaded", function(event) 
+{
+    console.log("DOM fully loaded and parsed");
+    
+    // Add Event Listener to phone label
+    if(document.getElementById('phoneInput'))
+	{
+    	let phone = document.getElementById('phoneInput');
+        phone.addEventListener('input', function() { phoneWriter(this);}, false);
+	}
+    
+    // Enable menuLeft channels to be sortable . free axis for response
+    $( "#sortable" ).sortable({
+    	
+    });
+    
+});
 

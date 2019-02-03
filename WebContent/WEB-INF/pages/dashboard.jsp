@@ -18,7 +18,7 @@
     	<div style="max-width: 390px; text-align: center">
 		Add a new course or access an existing courses for a plethora of totally relevant information.
 		<br/></br>
-		The app is totally responsive, test it out. Enjoy the demo.
+		Also, the app is totally responsive, test it out!
 		</div>
 	
 		<c:choose>

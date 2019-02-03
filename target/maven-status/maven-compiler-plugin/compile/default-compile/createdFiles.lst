@@ -11,10 +11,12 @@ com\app\model\Course.class
 com\app\controller\LoginController.class
 com\app\data\UserDataService.class
 com\app\business\UserBusinessService.class
+com\app\util\Util.class
 com\app\business\UserBusinessInterface.class
 com\app\exceptions\UserErrorException.class
 com\app\exceptions\DatabaseException.class
 com\app\controller\CourseController.class
 com\app\exceptions\CourseNotFoundException.class
+com\app\controller\CustomExceptionHandler.class
 com\app\business\CourseBusinessInterface.class
 com\app\data\DataAccessInterface.class

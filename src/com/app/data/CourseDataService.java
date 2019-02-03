@@ -51,8 +51,15 @@ public class CourseDataService implements DataAccessInterface<Course>{
 		List<User> tutors = new ArrayList<User>();
 		List<User> students = new ArrayList<User>();
 		
-		// READ query that searches approximate matches for courses searched
-		String sql_1 = "SELECT * FROM studisc.courses FETCH FIRST 100 ROWS ONLY";
+		//READ query that searches approximate matches for courses searched
+		
+		// Derby Dialect
+		//String sql_1 = "SELECT * FROM studisc.courses FETCH FIRST 100 ROWS ONLY";
+		
+		// MySQL Dialect
+		String sql_1 = "SELECT * FROM studisc.courses LIMIT 100";
+
+		
 		try
 		{
 			SqlRowSet srs_1 = jdbcTemplateObject.queryForRowSet(sql_1);

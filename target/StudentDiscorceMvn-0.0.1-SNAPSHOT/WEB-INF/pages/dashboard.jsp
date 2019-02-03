@@ -1,29 +1,39 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 
-<body>
-
 <div class="center--body">
-<h2>Dashboard</h2>
-<br/><br/>
-		<c:choose>
-    <c:when test="${empty user}">
-    <div align="center">add new classrooms to access resources and 
-        <br/>chat with other students</div>
-        
-    </c:when>
-    <c:otherwise>
-        <h3>Welcome ${user.username}!</h3>
-			<br/>
+
+	<div style="margin: auto;text-align: center">
+		<h2>Dashboard</h2>
+
+<c:choose>
+    <c:when test="${not empty user}">
+       
+       		<div style="text-align: center">
+        	<h3>Welcome ${user.username}!</h3>
 			<h4>Congratulations on successfully logging in!</h4>
-			<br/>
-			<div align="center">add new classrooms to access resources and 
-        <br/>chat with other students</div>
-    </c:otherwise>
+			</div>
+    </c:when>
 </c:choose>
-		
-			<tr>
-			<td><a href="../course/addCourse">Add Course</a></td>
-			</tr>
-			
+
+    	<div style="max-width: 390px; text-align: center">
+		Add a new course or access an existing courses for a plethora of totally relevant information.
+		<br/></br>
+		Also, the app is totally responsive, test it out!
 		</div>
-</body>
+	
+		<c:choose>
+			<c:when test="${not empty error}">
+			<br/>
+				<div class="error">${error}</div>
+			</c:when>
+		</c:choose>
+		<c:choose>
+			<c:when test="${not empty success}">
+			<br/>
+				<div class="success">${success}</div>
+			</c:when>
+		</c:choose>
+	
+		</div>
+		
+</div>

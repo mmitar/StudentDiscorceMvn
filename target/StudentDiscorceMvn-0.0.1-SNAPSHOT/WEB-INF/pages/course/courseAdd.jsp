@@ -2,14 +2,12 @@
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <%@ taglib prefix='c' uri='http://java.sun.com/jsp/jstl/core' %>
 
- <body>
 	<div class="center--body">
-	<h2>Add Course</h2>
-	<br/>
+	<h2>Add New Course</h2>
 	<form:form method="POST" modelAttribute="course" action="../course/addedCourse">
 		<table>
 			<tr>
-				<td><form:input class="input" path="courseID" placeholder="Course ID" minlength="7" maxlength="30" required="true"
+				<td><form:input class="input" path="courseID" placeholder="Course ID" minlength="7" maxlength="10" required="true"
 				oninvalid="this.setCustomValidity('Course Identification Number must be at least 7 characters.)" oninput="this.setCustomValidity('')" /></td>
 			</tr>
 			<tr>
@@ -69,17 +67,19 @@
 			<tr>
 				<td><form:errors class="error" path="image"/></td>
 			</tr>
-			
-			<tr> 
-				<td><input type="submit" value="Add Course"/></td>
-				
-
-				<td><a href="../login/user">Login</a></td>
-			</tr>
 		</table>
+		
+		<div style="display:flex;">
+			<input style="flex-grow:1" type="submit" value="Add"/>
+			<a href="../login/dashboard">Cancel</a>
+		</div>
+			
 	</form:form>
 
-	<div style="color: red">${error}</div>
+	<c:choose>
+		<c:when test="${not empty error}">
+			<div class="error">${error}</div>
+		</c:when>
+	</c:choose>
+	
 </div>
-</body> 
-

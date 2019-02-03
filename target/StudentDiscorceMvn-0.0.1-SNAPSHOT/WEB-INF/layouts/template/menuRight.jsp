@@ -1,5 +1,5 @@
 <div class="stories">
-	<input class="input" type="text" placeholder="search conversations" />
+	<input class="input" type="text" placeholder="search conversations"/>
 	
 	<div class="story">
 		<div class="storyTitle"></div>

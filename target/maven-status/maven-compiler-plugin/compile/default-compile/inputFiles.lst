@@ -13,10 +13,10 @@ C:\Users\Matt\eclipse-workspace-2\StudentDiscorceMvn\src\com\app\data\UserDataSe
 C:\Users\Matt\eclipse-workspace-2\StudentDiscorceMvn\src\com\app\exceptions\UserErrorException.java
 C:\Users\Matt\eclipse-workspace-2\StudentDiscorceMvn\src\com\app\controller\LoginController.java
 C:\Users\Matt\eclipse-workspace-2\StudentDiscorceMvn\src\com\app\data\CourseDataService.java
-C:\Users\Matt\eclipse-workspace-2\StudentDiscorceMvn\src\com\app\exceptions\CustomExceptionHandlerFactory.java
 C:\Users\Matt\eclipse-workspace-2\StudentDiscorceMvn\src\com\app\util\UserSession.java
+C:\Users\Matt\eclipse-workspace-2\StudentDiscorceMvn\src\com\app\controller\CustomExceptionHandler.java
 C:\Users\Matt\eclipse-workspace-2\StudentDiscorceMvn\src\com\app\exceptions\UserFoundException.java
 C:\Users\Matt\eclipse-workspace-2\StudentDiscorceMvn\src\com\app\model\Course.java
 C:\Users\Matt\eclipse-workspace-2\StudentDiscorceMvn\src\com\app\business\UserBusinessInterface.java
-C:\Users\Matt\eclipse-workspace-2\StudentDiscorceMvn\src\com\app\exceptions\CustomExceptionHandler.java
+C:\Users\Matt\eclipse-workspace-2\StudentDiscorceMvn\src\com\app\util\Util.java
 C:\Users\Matt\eclipse-workspace-2\StudentDiscorceMvn\src\com\app\business\UserBusinessService.java
