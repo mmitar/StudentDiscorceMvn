@@ -46,14 +46,22 @@
     	<property name="password" value="root" />
     </bean>  -->
     
-     <!-- Azure MySQL Datasource -->
-    <bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+    <!-- Azure MySQL Datasource -->
+    <!-- <bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
     	<property name="driverClassName" value="com.mysql.jdbc.Driver" />
         <property name="url" value="jdbc:mysql://127.0.0.1:50844/studisc" />
     	<property name="username" value="azure" />
     	<property name="password" value="6#vWHD_$" />
+    </bean> -->
+    
+    <!-- Heroku JawsDB MySQL Datasource -->
+    <bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+    	<property name="driverClassName" value="com.mysql.jdbc.Driver" />
+        <property name="url" value="jdbc:mysql://fi6x80wfyqitwjnu:vm4e2ksotnhhkgot@d13xat1hwxt21t45.cbetxkdyhwsb.us-east-1.rds.amazonaws.com:3306/bm5b74dwku4wd85s" />
+    	<property name="username" value="fi6x80wfyqitwjnu" />
+    	<property name="password" value="vm4e2ksotnhhkgot" />
     </bean>
-  
+    
     <!-- Setup Transaction Manager -->
     <aop:config>
         <aop:pointcut id="allServiceMethods" expression="execution(* com.app.business.*Interface.*(..))" />

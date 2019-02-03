@@ -57,7 +57,7 @@ public class CourseDataService implements DataAccessInterface<Course>{
 		//String sql_1 = "SELECT * FROM studisc.courses FETCH FIRST 100 ROWS ONLY";
 		
 		// MySQL Dialect
-		String sql_1 = "SELECT * FROM studisc.courses LIMIT 100";
+		String sql_1 = "SELECT * FROM courses LIMIT 100";
 
 		
 		try
@@ -70,7 +70,7 @@ public class CourseDataService implements DataAccessInterface<Course>{
 				Course newCourse = Course.getSqlRowSet(srs_1);
 				
 				// READ query to get the users affiliated with the course that was found.
-				String sql_2 = "SELECT * FROM studisc.users WHERE PERMISSION LIKE '%"+newCourse.getCourseID()+"%'";
+				String sql_2 = "SELECT * FROM users WHERE PERMISSION LIKE '%"+newCourse.getCourseID()+"%'";
 				SqlRowSet srs_2 = jdbcTemplateObject.queryForRowSet(sql_2);
 				
 				// Iterate through all results of users affiliated with the course
@@ -155,7 +155,7 @@ public class CourseDataService implements DataAccessInterface<Course>{
 		List<User> students = new ArrayList<User>();
 		
 		// READ query that searches approximate matches for courses searched
-		String sql_1 = "SELECT * FROM studisc.courses WHERE COURSE_ID LIKE '%"+course.getCourseID()+"%'"
+		String sql_1 = "SELECT * FROM courses WHERE COURSE_ID LIKE '%"+course.getCourseID()+"%'"
 														+ " OR TITLE LIKE '%"+course.getTitle()+"%'";
 		try
 		{
@@ -167,7 +167,7 @@ public class CourseDataService implements DataAccessInterface<Course>{
 				Course newCourse = Course.getSqlRowSet(srs_1);
 				
 				// READ query to get the users affiliated with the course that was found.
-				String sql_2 = "SELECT * FROM studisc.users WHERE PERMISSION LIKE '%"+course.getCourseID()+"%'";
+				String sql_2 = "SELECT * FROM users WHERE PERMISSION LIKE '%"+course.getCourseID()+"%'";
 				SqlRowSet srs_2 = jdbcTemplateObject.queryForRowSet(sql_2);
 				
 				// Iterate through all results of users affiliated with the course
@@ -252,7 +252,7 @@ public class CourseDataService implements DataAccessInterface<Course>{
 		try
 		{
 			// READ query to select the course being called. Case insensitive.
-			String sql = "SELECT * FROM studisc.courses WHERE COURSE_ID = TRIM('" + course.getCourseID() + "')";
+			String sql = "SELECT * FROM courses WHERE COURSE_ID = TRIM('" + course.getCourseID() + "')";
 			SqlRowSet srs = jdbcTemplateObject.queryForRowSet(sql);
 			
 			// Return if there are no results
@@ -264,7 +264,7 @@ public class CourseDataService implements DataAccessInterface<Course>{
 			course = Course.getSqlRowSet(srs);
 			
 			// READ query to get the users affiliated with the course that was found.
-			String sql_2 = "SELECT * FROM studisc.users WHERE PERMISSION LIKE '%"+course.getCourseID()+"%'";
+			String sql_2 = "SELECT * FROM users WHERE PERMISSION LIKE '%"+course.getCourseID()+"%'";
 			SqlRowSet srs_2 = jdbcTemplateObject.queryForRowSet(sql_2);
 			
 			// Iterate through all results of users affiliated with the course
@@ -340,7 +340,7 @@ public class CourseDataService implements DataAccessInterface<Course>{
 		try
 		{
 			// CREATE query that adds the course to the database. Upper-Cases Course ID.
-			String sql = "INSERT INTO studisc.courses ("+ Course.getSqlParams() +") VALUES ("+ Course.getSqlValues(course) +")";
+			String sql = "INSERT INTO courses ("+ Course.getSqlParams() +") VALUES ("+ Course.getSqlValues(course) +")";
 		
 			// Execute SQL Insert
 			int rows = jdbcTemplateObject.update(sql);
@@ -370,7 +370,7 @@ public class CourseDataService implements DataAccessInterface<Course>{
 		try
 		{
 			// UPDATE query that updates the selected course params by Course ID
-			String sql = "UPDATE studisc.courses SET "+ Course.getSqlSet(course) +" WHERE COURSE_ID = '" + course.getCourseID() + "'";
+			String sql = "UPDATE courses SET "+ Course.getSqlSet(course) +" WHERE COURSE_ID = '" + course.getCourseID() + "'";
 			
 			// Execute SQL Update
 			int rows = jdbcTemplateObject.update(sql);
@@ -400,7 +400,7 @@ public class CourseDataService implements DataAccessInterface<Course>{
 		try
 		{
 			// DELETE query that removes the course by Course ID.
-			String sql = "DELETE FROM studisc.courses WHERE COURSE_ID = '" + course.getCourseID() + "'";
+			String sql = "DELETE FROM courses WHERE COURSE_ID = '" + course.getCourseID() + "'";
 					
 			// Execute SQL Update
 			int rows = jdbcTemplateObject.update(sql);
@@ -430,7 +430,7 @@ public class CourseDataService implements DataAccessInterface<Course>{
 		try
 		{
 			// READ query to identify by course ID. Case Insensitive.
-			String sql = "SELECT * FROM studisc.courses WHERE "
+			String sql = "SELECT * FROM courses WHERE "
 					+ "UPPER(COURSE_ID) LIKE TRIM(UPPER('" + course.getCourseID() + "'))";
 
 			SqlRowSet srs = jdbcTemplateObject.queryForRowSet(sql);

@@ -49,7 +49,7 @@ public class UserDataService implements DataAccessInterface<User>{
 		try
 		{
 			// READ query to identify the user by username and password.
-			String sql = "SELECT * FROM studisc.users WHERE "
+			String sql = "SELECT * FROM users WHERE "
 					+ "USERNAME = '"+ Util.typeSafe(user.getUsername()) +"' "
 					+ "AND PASSWORD = '"+ Util.typeSafe(user.getPassword()) +"'";
 			
@@ -88,7 +88,7 @@ public class UserDataService implements DataAccessInterface<User>{
 	public boolean create(User user) 
 	{
 		// Create query that adds the user to the DB
-		String sql = "INSERT INTO studisc.users (" + User.getSqlParams() + ") VALUES (" + User.getSqlValues(user) + ")";
+		String sql = "INSERT INTO users (" + User.getSqlParams() + ") VALUES (" + User.getSqlValues(user) + ")";
 		try
 		{
 			// Execute SQL Insert
@@ -119,7 +119,7 @@ public class UserDataService implements DataAccessInterface<User>{
 		try
 		{
 			// READ query to identify the user by username. Case Insensitive.
-			String sql = "SELECT * FROM studisc.users WHERE "
+			String sql = "SELECT * FROM users WHERE "
 					+ "UPPER(USERNAME) LIKE TRIM(UPPER('"+ Util.typeSafe(user.getUsername()) +"'))";
 			
 			SqlRowSet srs = jdbcTemplateObject.queryForRowSet(sql);
