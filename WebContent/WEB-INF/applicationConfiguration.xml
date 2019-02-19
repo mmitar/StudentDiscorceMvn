@@ -39,12 +39,12 @@
     </bean> -->
     
     <!-- MySQL Datasource -->
-    <!-- <bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+    <bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
     	<property name="driverClassName" value="com.mysql.jdbc.Driver" />
     	<property name="url" value="jdbc:mysql://localhost:3306/studisc" />
     	<property name="username" value="root" />
     	<property name="password" value="root" />
-    </bean>  -->
+    </bean> 
     
     <!-- Azure MySQL Datasource -->
     <!-- <bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
@@ -55,12 +55,20 @@
     </bean> -->
     
     <!-- Heroku JawsDB MySQL Datasource -->
-    <bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+<!--     <bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
     	<property name="driverClassName" value="com.mysql.jdbc.Driver" />
         <property name="url" value="jdbc:mysql://d13xat1hwxt21t45.cbetxkdyhwsb.us-east-1.rds.amazonaws.com:3306/bm5b74dwku4wd85s" />
     	<property name="username" value="fi6x80wfyqitwjnu" />
     	<property name="password" value="vm4e2ksotnhhkgot" />
-    </bean>
+    </bean> -->
+    
+    <!-- Google Cloud MySql Datasource -->
+<!--     <bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+    	<property name="driverClassName" value="com.mysql.jdbc.Driver" />
+        <property name="url" value="jdbc:mysql://google/studisc?socketFactory=com.google.cloud.sql.mysql.SocketFactory&cloudSqlInstance=sunny-strategy-231715:us-west1:cloud-sql-instance" />
+    	<property name="username" value="root" />
+    	<property name="password" value="mmitar" />
+    </bean> -->
     
     <!-- Setup Transaction Manager -->
     <aop:config>
