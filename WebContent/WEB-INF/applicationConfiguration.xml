@@ -39,12 +39,12 @@
     </bean> -->
     
     <!-- MySQL Datasource -->
-    <bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+<!--     <bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
     	<property name="driverClassName" value="com.mysql.jdbc.Driver" />
     	<property name="url" value="jdbc:mysql://localhost:3306/studisc" />
     	<property name="username" value="root" />
     	<property name="password" value="root" />
-    </bean> 
+    </bean> --> 
     
     <!-- Azure MySQL Datasource -->
     <!-- <bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
@@ -65,10 +65,23 @@
     <!-- Google Cloud MySql Datasource -->
 <!--     <bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
     	<property name="driverClassName" value="com.mysql.jdbc.Driver" />
-        <property name="url" value="jdbc:mysql://google/studisc?socketFactory=com.google.cloud.sql.mysql.SocketFactory&cloudSqlInstance=sunny-strategy-231715:us-west1:cloud-sql-instance" />
+        <property name="url" value="jdbc:mysql://google/studisc?socketFactory=com.google.cloud.sql.mysql.SocketFactory&cloudSqlInstance=sunny-strategy-231715:us-west1-b:cloud-sql-instance" />
     	<property name="username" value="root" />
     	<property name="password" value="mmitar" />
     </bean> -->
+    
+    <!-- Configuration Parameters -->
+    <bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+    	<property name="location" value="classpath:config/config.properties" />
+    </bean>
+    
+    <!-- MySQL Config.Properties Datasource -->
+    <bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+    	<property name="driverClassName" value="com.mysql.jdbc.Driver" />
+        <property name="url" value="${db.connection}" />
+    	<property name="username" value="${db.username}" />
+    	<property name="password" value="${db.password}" />
+    </bean>
     
     <!-- Setup Transaction Manager -->
     <aop:config>
